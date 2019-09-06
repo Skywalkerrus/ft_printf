@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/09/05 18:41:24 by bantario         ###   ########.fr       */
+/*   Updated: 2019/09/06 11:06:41 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,19 @@ void	print_symb(char *hu, va_list ap)
 	}
 }
 
+void	cast_func(char *hu, va_list ap, func *mass)
+{
+	mass[1](hu, ap);
+	mass[2](hu, ap);
+	mass[3](hu, ap);
+}
+
 void	fundament(func *mass)
 {
 	mass[1] = print_int;
 	mass[2] = print_str;
 	mass[3] = print_symb;
+	mass[4] = cast_func;
 }
 
 void	ft_printf(char *hu, ...)
@@ -71,9 +79,7 @@ void	ft_printf(char *hu, ...)
 		else if (*hu == '%')
 		{
 			hu++;
-			mass[1](hu, ap);
-			mass[2](hu, ap);
-			mass[3](hu, ap);
+			mass[4](hu, ap, mass);
 		}
 		hu++;
 	}
@@ -90,7 +96,12 @@ int		main(int ac, char **av)
 	if (ac > 0)
 	{
 		av[0] = 0;
-		ft_printf("bla-bla flags: int - %d, str - %s, char - %c.", d, "Hello, pidoer", a);
+		printf("Nmy printf:\n");
+		printf("bla-bla flags: int - %d, str - %s, char - %c.", d, "Hello, pidoer\n", a);
+		ft_printf("bla-bla int: %d, str: %s, char: %c.", d, "Hello, pidoer\n", a);
+		//printf("bla-bla flags: int: %d, str: %s, char: %c.", d, "Hello, pidoer\n", a);
+		ft_printf("My printf:\n");
+		//ft_printf("bla-bla flags: int - %d, str - %s, char - %c.", d, "Hello, pidoer\n", a);
 	}
 	return (0);
 }
