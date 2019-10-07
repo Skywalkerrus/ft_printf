@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/09/06 14:02:45 by bantario         ###   ########.fr       */
+/*   Updated: 2019/10/07 19:09:04 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	print_long(char *hu, va_list ap)
 {
 	long int lval;
 
-	if ((*hu == 'l') && (*hu++ = 'd'))
+	if (*hu == 'l' && (*hu++ = 'd'))
 	{
 		lval = va_arg(ap, long long int);
 		ft_putnbr(lval);
@@ -107,17 +107,19 @@ int		main(int ac, char **av)
 	long int l;
 
 	a = 'r';
-	d = 343434453;
+	d = -343434453;
 	l = 3443434344;
 	if (ac > 0)
 	{
 		av[0] = 0;
-		printf("Nmy printf:\n");
+		//printf("Nmy printf:\n");
 		//printf("bla-bla flags: int - %d, str - %s, char - %c., long int: %li", d, "Hello\n", a, l);
-		ft_printf("bla-bla int: %d, str: %s, char: %c.", d, "Hello, pidoer\n", a);
-		//printf("bla-bla flags: int: %d, str: %s, char: %c.", d, "Hello\n", a);
-		ft_printf("bla-bla flags: int: %d, str: %s, char: %c.", d, "Hellor\n", a);
-		ft_printf("sizeof : %d\n", sizeof(long int));
+		//ft_printf("bla-bla int: %d, str: %s, char: %c.", d, "Hello, man\n", a);
+		//printf("bla-bla flags: int: %d, str: %s, char: %c.", d, "Hello, man\n", a);
+		//ft_printf("bla-bla flags: int: %d, str: %s, char: %c.", d, "Hello, man\n", a);
+		printf("bla-bla flags: int: %d, str: %s, char: %c, str: %s.\n", d, "Joe Barbaro", a, "Geralt of Rivia");
+		ft_printf("bla-bla flags: int: %d, str: %s, char: %c, str: %s.\n", d, "Joe Barbaro", a, "Geralt of Rivia");
+		//ft_printf("sizeof : %d\n", sizeof(long int));
 	}
 	return (0);
 }
