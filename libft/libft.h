@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 18:32:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/04/22 18:59:45 by bantario         ###   ########.fr       */
+/*   Updated: 2019/10/09 17:19:41 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putchar_fd(char c, int fd);
-void				ft_putnbr(int n);
+void				ft_putnbr(long int n);
 void				ft_putendl(char const *s);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);

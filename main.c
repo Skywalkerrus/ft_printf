@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/10/07 19:09:04 by bantario         ###   ########.fr       */
+/*   Updated: 2019/10/09 17:20:02 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,15 @@ void	print_long(char *hu, va_list ap)
 {
 	long int lval;
 
-	if (*hu == 'l' && (*hu++ = 'd'))
+	if (*hu == 'l')
 	{
-		lval = va_arg(ap, long long int);
-		ft_putnbr(lval);
-		//hu++; //nihua ne rabotaet
-	}
+		hu++;
+		if (*hu == 'd')
+		{
+			lval = va_arg(ap, long long int);
+			ft_putnbr(lval);
+		}
+	} //rabotaet, no s problemami
 }
 
 void	cast_func(char *hu, va_list ap, func *mass)
@@ -94,6 +97,12 @@ void	ft_printf(char *hu, ...)
 		{
 			hu++;
 			mass[4](hu, ap, mass);
+			if (*hu == 'l')
+			{
+				hu++;
+				if (*hu != 'd')
+					hu++;
+			}
 		}
 		hu++;
 	}
@@ -108,7 +117,7 @@ int		main(int ac, char **av)
 
 	a = 'r';
 	d = -343434453;
-	l = 3443434344;
+	l = 2147483648;
 	if (ac > 0)
 	{
 		av[0] = 0;
@@ -117,8 +126,11 @@ int		main(int ac, char **av)
 		//ft_printf("bla-bla int: %d, str: %s, char: %c.", d, "Hello, man\n", a);
 		//printf("bla-bla flags: int: %d, str: %s, char: %c.", d, "Hello, man\n", a);
 		//ft_printf("bla-bla flags: int: %d, str: %s, char: %c.", d, "Hello, man\n", a);
-		printf("bla-bla flags: int: %d, str: %s, char: %c, str: %s.\n", d, "Joe Barbaro", a, "Geralt of Rivia");
-		ft_printf("bla-bla flags: int: %d, str: %s, char: %c, str: %s.\n", d, "Joe Barbaro", a, "Geralt of Rivia");
+		//printf("bla-bla flags: int: %d, str: %s, char: %c, str: %s, long: %ld.\n", d, "Joe Barbaro", a, "Geralt of Rivia", l);
+		//ft_printf("bla-bla flags: int: %d, str: %s, char: %c, str: %s, long: %ld.\n", d, "Joe Barbaro", a, "Geralt of Rivia", l);
+		printf("\nlong: %ld allilya\n", l);
+		ft_printf("long: %ld allilya\n", l);
+		
 		//ft_printf("sizeof : %d\n", sizeof(long int));
 	}
 	return (0);

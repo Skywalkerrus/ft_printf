@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jcartwri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/17 16:34:49 by bantario          #+#    #+#             */
-/*   Updated: 2019/04/19 17:23:17 by bantario         ###   ########.fr       */
+/*   Created: 2018/11/29 20:49:30 by jcartwri          #+#    #+#             */
+/*   Updated: 2019/10/09 16:57:55 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr(int n)
+void	ft_putnbr(long int n)
 {
 	unsigned int nbr;
 
