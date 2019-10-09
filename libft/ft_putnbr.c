@@ -6,7 +6,7 @@
 /*   By: jcartwri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 20:49:30 by jcartwri          #+#    #+#             */
-/*   Updated: 2019/10/09 16:57:55 by bantario         ###   ########.fr       */
+/*   Updated: 2019/10/09 18:43:46 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putnbr(long int n)
 {
-	unsigned int nbr;
+	signed long long int nbr;
 
 	nbr = 0;
 	if (n < 0)
