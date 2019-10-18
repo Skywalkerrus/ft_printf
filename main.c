@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/10/11 17:15:06 by bantario         ###   ########.fr       */
+/*   Updated: 2019/10/18 17:48:39 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,19 +176,7 @@ int		main(int ac, char **av)
 	if (ac > 0)
 	{
 		av[0] = 0;
-		//printf("Nmy printf:\n");
-		//printf("bla-bla flags: int - %d, str - %s, char - %c., long int: %li", d, "Hello\n", a, l);
-		//ft_printf("bla-bla int: %d, str: %s, char: %c.", d, "Hello, man\n", a);
-		//printf("bla-bla flags: int: %d, str: %s, char: %c.", d, "Hello, man\n", a);
-		//ft_printf("bla-bla flags: int: %d, str: %s, char: %c.", d, "Hello, man\n", a);
-		//printf("bla-bla flags: int: %d, str: %s, char: %c, str: %s, long: %ld.\n", d, "Joe Barbaro", a, "Geralt of Rivia", l);
-		//ft_printf("bla-bla flags: int: %d, str: %s, char: %c, str: %s, long: %ld.\n", d, "Joe Barbaro", a, "Geralt of Rivia", l);	
-		//printf("\n %%  long: %lld allilya\n", l);
-		//ft_printf(" %%  long: %lld allilya\n", l);
-		//printf("%d\n", (0 − 8));
-		//ft_printf("%lld\n", (−9223372036854775808));
-		//printf("%llu\n", 18446744073709551614);
-		//ft_printf("%llu\n", 18446744073709551614);
+		// tests
 	}
 	return (0);
 }
