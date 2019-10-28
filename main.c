@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/10/21 20:00:13 by bantario         ###   ########.fr       */
+/*   Updated: 2019/10/28 19:20:32 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,12 @@ void	print_u(char *hu, va_list ap)
 	}
 }
 
+void	print_procent(char *hu)
+{
+	if (*hu == '%')
+		ft_putchar('%');
+}
+
 void	cast_func(char *hu, va_list ap, func *mass)
 {
 	mass[1](hu, ap);
@@ -158,6 +164,7 @@ void	cast_func(char *hu, va_list ap, func *mass)
 	mass[8](hu, ap);
 	mass[9](hu, ap);
 	mass[10](hu, ap);
+	mass[11](hu);
 }
 
 void	fundament(func *mass)
@@ -172,6 +179,7 @@ void	fundament(func *mass)
 	mass[8] = print_llu;
 	mass[9] = print_o;
 	mass[10] = print_u;
+	mass[11] = print_procent;
 }
 
 void	ft_printf(char *hu, ...)
@@ -179,7 +187,7 @@ void	ft_printf(char *hu, ...)
 	func *mass;
 	va_list ap;
 
-	mass = (void *) malloc(sizeof(void) * 50);
+	mass = (void *) malloc(sizeof(void) * 10000);
 	va_start(ap, hu);
 	mass[0] = fundament;
 	mass[0](mass);
@@ -200,6 +208,7 @@ void	ft_printf(char *hu, ...)
 		}
 		hu++;
 	}
+	free(mass);
 	return;
 }
 
@@ -216,9 +225,9 @@ int		main(int ac, char **av)
 	if (ac > 0)
 	{
 		av[0] = 0;
-		printf("pt_printf: %o\n", 42949672956);
-		ft_printf("ft_printf: %o\n", 42949672956);
-		// tests
+		printf("%%\n");
+		ft_printf("%%\n");
+		
 	}
 	return (0);
 }
