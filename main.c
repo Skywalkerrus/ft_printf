@@ -6,10 +6,11 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/10/28 19:20:32 by bantario         ###   ########.fr       */
+/*   Updated: 2019/10/29 19:05:35 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <limits.h>
 #include "ft_printf.h"
 #include <stdio.h>
 #include "stdlib.h"
@@ -153,6 +154,50 @@ void	print_procent(char *hu)
 		ft_putchar('%');
 }
 
+void	print_lu(char *hu, va_list ap)
+{
+	unsigned long lu;
+	if (*hu == 'l')
+	{
+		hu++;
+		if (*hu == 'u')
+		{
+			lu = va_arg(ap, unsigned long);
+			ft_putnbr(lu);
+		}
+	}
+}
+
+void	print_hu(char *hu, va_list ap)
+{
+	int val;
+	
+	if (*hu == 'h')
+	{
+		hu++;
+		if (*hu == 'u')
+		{
+			val = va_arg(ap, int);
+			ft_putnbr(val);
+		}
+	}
+}
+
+void	print_hi(char *hu, va_list ap)
+{
+	signed short int val;
+
+	if (*hu == 'h')
+	{
+		hu++;
+		if (*hu == 'i')
+		{
+			val = va_arg(ap, int);
+			ft_putnbr(val);
+		}
+	}
+}
+
 void	cast_func(char *hu, va_list ap, func *mass)
 {
 	mass[1](hu, ap);
@@ -165,6 +210,9 @@ void	cast_func(char *hu, va_list ap, func *mass)
 	mass[9](hu, ap);
 	mass[10](hu, ap);
 	mass[11](hu);
+	mass[12](hu, ap);
+	mass[13](hu, ap);
+	mass[14](hu, ap);
 }
 
 void	fundament(func *mass)
@@ -180,6 +228,9 @@ void	fundament(func *mass)
 	mass[9] = print_o;
 	mass[10] = print_u;
 	mass[11] = print_procent;
+	mass[12] = print_lu;
+	mass[13] = print_hu;
+	mass[14] = print_hi;
 }
 
 void	ft_printf(char *hu, ...)
@@ -187,7 +238,7 @@ void	ft_printf(char *hu, ...)
 	func *mass;
 	va_list ap;
 
-	mass = (void *) malloc(sizeof(void) * 10000);
+	mass = (void *) malloc(sizeof(void) * 100);
 	va_start(ap, hu);
 	mass[0] = fundament;
 	mass[0](mass);
@@ -202,6 +253,8 @@ void	ft_printf(char *hu, ...)
 			if (*hu == 'l' || *hu == 'h')
 			{
 				hu++;
+				if (*hu == 'u' || *hu == 'i')
+					hu--;
 				if (*hu != 'd')
 					hu++;
 			}
@@ -225,9 +278,10 @@ int		main(int ac, char **av)
 	if (ac > 0)
 	{
 		av[0] = 0;
-		printf("%%\n");
-		ft_printf("%%\n");
-		
+		printf("	prntf:		%hi \n", (signed short int) SHRT_MAX);
+		ft_printf("	ft_printf:	%hi", (signed short int) SHRT_MAX);
+		//printf("    prntf:      %lu \n", 4294967295);
+		//ft_printf("    ft_prntf:      %lu", 4294967295);
 	}
 	return (0);
 }
