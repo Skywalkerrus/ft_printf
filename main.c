@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/10/29 19:05:35 by bantario         ###   ########.fr       */
+/*   Updated: 2019/10/30 19:54:54 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,11 @@ void	print_llu(char *hu, va_list ap)
 		hu++;
 		if (*hu == 'l')
 		{
+			hu++;
 			if (*hu == 'u')
 			{
 				llu = va_arg(ap, unsigned long long int);
-				ft_putnbr(llu);
+				ft_putnbr_2(llu);
 			}
 		}
 	}
@@ -198,6 +199,40 @@ void	print_hi(char *hu, va_list ap)
 	}
 }
 
+void	print_hd(char *hu, va_list ap)
+{
+	short int hd;
+
+	if (*hu == 'h')
+	{
+		hu++;
+		if (*hu == 'd')
+		{
+			hd = va_arg(ap, int);
+			ft_putnbr(hd);
+		}
+	}
+}
+
+void	print_lli(char *hu, va_list ap)
+{
+	signed long long int lli;
+
+	if (*hu == 'l')
+	{
+		hu++;
+		if (*hu == 'l')
+		{
+			hu++;
+			if (*hu == 'i')
+			{
+				lli = va_arg(ap, signed long long int);
+				ft_putnbr(lli);
+			}
+		}
+	}
+}
+
 void	cast_func(char *hu, va_list ap, func *mass)
 {
 	mass[1](hu, ap);
@@ -213,6 +248,8 @@ void	cast_func(char *hu, va_list ap, func *mass)
 	mass[12](hu, ap);
 	mass[13](hu, ap);
 	mass[14](hu, ap);
+	mass[15](hu, ap);
+	mass[16](hu, ap);
 }
 
 void	fundament(func *mass)
@@ -231,6 +268,8 @@ void	fundament(func *mass)
 	mass[12] = print_lu;
 	mass[13] = print_hu;
 	mass[14] = print_hi;
+	mass[15] = print_hd;
+	mass[16] = print_lli;
 }
 
 void	ft_printf(char *hu, ...)
@@ -278,10 +317,8 @@ int		main(int ac, char **av)
 	if (ac > 0)
 	{
 		av[0] = 0;
-		printf("	prntf:		%hi \n", (signed short int) SHRT_MAX);
-		ft_printf("	ft_printf:	%hi", (signed short int) SHRT_MAX);
-		//printf("    prntf:      %lu \n", 4294967295);
-		//ft_printf("    ft_prntf:      %lu", 4294967295);
+		//printf("printf: %x\n", 0x64);
+		ft_printf("ft_printf: %d\n", 9 + 5);
 	}
 	return (0);
 }
