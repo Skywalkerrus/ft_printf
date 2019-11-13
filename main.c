@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/10/18 17:48:39 by bantario         ###   ########.fr       */
+/*   Updated: 2019/10/21 20:00:13 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	print_symb(char *hu, va_list ap)
 	}
 }
 
-void	print_long(char *hu, va_list ap)
+void	print_ld(char *hu, va_list ap)
 {
 	long int lval;
 
@@ -102,12 +102,48 @@ void	print_llu(char *hu, va_list ap)
 
 void	print_i(char *hu, va_list ap)
 {
-	signed int i;
+	signed int		chislo;
+	char			*hex_to_numb;
 
 	if (*hu == 'i')
 	{
-		i = va_arg(ap, signed int);
-		ft_putnbr(i);
+		chislo = va_arg(ap, signed int);
+		hex_to_numb = ft_itoa(chislo);
+		ft_putnbr(ft_atoi(hex_to_numb));
+	}
+}
+
+void	Func(unsigned int n)
+{
+	if (n != 0)
+		Func(n / 8);
+	else
+		return;
+	ft_putnbr(n % 8);
+	return;
+}
+
+void	print_o(char *hu, va_list ap)
+{
+	int oo;
+
+	if (*hu == 'o')
+	{
+		oo = va_arg(ap, unsigned int);
+		if (oo == 0)
+			ft_putnbr(0);
+		Func(oo);
+	}
+}
+
+void	print_u(char *hu, va_list ap)
+{
+	int	uu;
+
+	if (*hu == 'u')
+	{
+		uu = va_arg(ap, unsigned long long int);
+		ft_putnbr(uu);
 	}
 }
 
@@ -120,6 +156,8 @@ void	cast_func(char *hu, va_list ap, func *mass)
 	mass[6](hu, ap);
 	mass[7](hu, ap);
 	mass[8](hu, ap);
+	mass[9](hu, ap);
+	mass[10](hu, ap);
 }
 
 void	fundament(func *mass)
@@ -128,10 +166,12 @@ void	fundament(func *mass)
 	mass[2] = print_str;
 	mass[3] = print_symb;
 	mass[4] = cast_func;
-	mass[5] = print_long;
+	mass[5] = print_ld;
 	mass[6] = print_long_l;
 	mass[7] = print_i;
 	mass[8] = print_llu;
+	mass[9] = print_o;
+	mass[10] = print_u;
 }
 
 void	ft_printf(char *hu, ...)
@@ -176,6 +216,8 @@ int		main(int ac, char **av)
 	if (ac > 0)
 	{
 		av[0] = 0;
+		printf("pt_printf: %o\n", 42949672956);
+		ft_printf("ft_printf: %o\n", 42949672956);
 		// tests
 	}
 	return (0);
