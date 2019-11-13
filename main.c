@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/10/30 19:54:54 by bantario         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:31:36 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <stdio.h>
 #include "stdlib.h"
 #include <stdarg.h>
+
+#define T1 0x0
 
 void	print_int(char *hu, va_list ap)
 {
@@ -233,6 +235,24 @@ void	print_lli(char *hu, va_list ap)
 	}
 }
 
+void	print_x(char *hu, va_list ap)
+{
+	int dec;
+	char *hex;
+	int i;
+
+	i = 0;
+	hex = (char *)malloc(sizeof(char) * 50);
+	dec = 0;
+	if (*hu == 'x')
+	{
+		//hex[i] = (char) (va_arg(ap, int));
+		dec = va_arg(ap, int);
+		printf(" %d ", dec);
+
+	}
+}
+
 void	cast_func(char *hu, va_list ap, func *mass)
 {
 	mass[1](hu, ap);
@@ -250,6 +270,7 @@ void	cast_func(char *hu, va_list ap, func *mass)
 	mass[14](hu, ap);
 	mass[15](hu, ap);
 	mass[16](hu, ap);
+	mass[17](hu, ap);
 }
 
 void	fundament(func *mass)
@@ -270,6 +291,7 @@ void	fundament(func *mass)
 	mass[14] = print_hi;
 	mass[15] = print_hd;
 	mass[16] = print_lli;
+	mass[17] = print_x;
 }
 
 void	ft_printf(char *hu, ...)
@@ -277,7 +299,7 @@ void	ft_printf(char *hu, ...)
 	func *mass;
 	va_list ap;
 
-	mass = (void *) malloc(sizeof(void) * 100);
+	mass = (void *) malloc(sizeof(void) * 200);
 	va_start(ap, hu);
 	mass[0] = fundament;
 	mass[0](mass);
@@ -301,6 +323,7 @@ void	ft_printf(char *hu, ...)
 		hu++;
 	}
 	free(mass);
+	va_end(ap);
 	return;
 }
 
@@ -317,8 +340,9 @@ int		main(int ac, char **av)
 	if (ac > 0)
 	{
 		av[0] = 0;
-		//printf("printf: %x\n", 0x64);
-		ft_printf("ft_printf: %d\n", 9 + 5);
+		printf("printf: %x\n", 0x64);
+		//ft_printf("ft_printf: %x\n", 0xFF);
+		ft_printf("ft_printf: %x\n", 0x64);
 	}
 	return (0);
 }
