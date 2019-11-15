@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 18:32:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/10/30 17:10:26 by bantario         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:36:37 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void				ft_putstr_fd(char const *s, int fd);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putnbr(long int n);
 void				ft_putnbr_2(unsigned long long int n);
+int					ft_putnbr_3(long int n);
 void				ft_putendl(char const *s);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);

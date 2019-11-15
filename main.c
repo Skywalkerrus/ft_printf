@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/11/13 19:31:36 by bantario         ###   ########.fr       */
+/*   Updated: 2019/11/15 18:46:48 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include <stdio.h>
 #include "stdlib.h"
 #include <stdarg.h>
-
-#define T1 0x0
 
 void	print_int(char *hu, va_list ap)
 {
@@ -235,21 +233,73 @@ void	print_lli(char *hu, va_list ap)
 	}
 }
 
+void	Func2(int n)
+{
+	if (n != 0)
+		Func2(n / 16);
+	else
+		return;
+	if ((n % 16) == 15)
+		ft_putchar('f');
+	else if ((n % 16) == 10)
+		ft_putchar('a');
+	else if ((n % 16) == 11)
+		ft_putchar('b');
+	else if ((n % 16) == 12)
+		ft_putchar('c');
+	else if ((n % 16) == 13)
+		ft_putchar('d');
+	else if ((n % 16) == 14)
+		ft_putchar('e');
+	else
+		ft_putnbr(n % 16);
+	return;
+}
+
+void    Func3(int n)
+{
+	if (n != 0)
+		Func3(n / 16);
+	else
+		return;
+	if ((n % 16) == 10)
+		ft_putchar('A');
+	else if ((n % 16) == 11)
+		ft_putchar('B');
+	else if ((n % 16) == 12)
+		ft_putchar('C');
+	else if ((n % 16) == 13)
+		ft_putchar('D');
+	else if ((n % 16) == 14)
+		ft_putchar('E');
+	else if ((n % 16) == 15)
+		ft_putchar('F');
+	else
+		ft_putnbr(n % 16);
+	return;
+}
+
 void	print_x(char *hu, va_list ap)
 {
 	int dec;
-	char *hex;
-	int i;
 
-	i = 0;
-	hex = (char *)malloc(sizeof(char) * 50);
 	dec = 0;
 	if (*hu == 'x')
 	{
-		//hex[i] = (char) (va_arg(ap, int));
 		dec = va_arg(ap, int);
-		printf(" %d ", dec);
+		Func2(dec);
+	}
+}
 
+void	print_X(char *hu, va_list ap)
+{
+	int dec;
+
+	dec = 0;
+	if (*hu == 'X')
+	{
+		dec = va_arg(ap, int);
+		Func3(dec);
 	}
 }
 
@@ -271,6 +321,7 @@ void	cast_func(char *hu, va_list ap, func *mass)
 	mass[15](hu, ap);
 	mass[16](hu, ap);
 	mass[17](hu, ap);
+	mass[18](hu, ap);
 }
 
 void	fundament(func *mass)
@@ -292,6 +343,7 @@ void	fundament(func *mass)
 	mass[15] = print_hd;
 	mass[16] = print_lli;
 	mass[17] = print_x;
+	mass[18] = print_X;
 }
 
 void	ft_printf(char *hu, ...)
@@ -299,7 +351,7 @@ void	ft_printf(char *hu, ...)
 	func *mass;
 	va_list ap;
 
-	mass = (void *) malloc(sizeof(void) * 200);
+	mass = (void *) malloc(sizeof(void) * 250);
 	va_start(ap, hu);
 	mass[0] = fundament;
 	mass[0](mass);
@@ -340,9 +392,8 @@ int		main(int ac, char **av)
 	if (ac > 0)
 	{
 		av[0] = 0;
-		printf("printf: %x\n", 0x64);
-		//ft_printf("ft_printf: %x\n", 0xFF);
-		ft_printf("ft_printf: %x\n", 0x64);
+		printf("printf: %X\n", 0x257);
+		ft_printf("ft_printf: %X\n", 0x257);
 	}
 	return (0);
 }
