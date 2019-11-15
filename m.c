@@ -55,7 +55,7 @@ int intToStr(int x, char *str, int d)
     int i = 0;
     while (x)
     {
-        str[i++] = (x % 10) + '0';
+        str[i++] = (x % 10) + 48;
         x = x/10;
     }
 
@@ -63,10 +63,9 @@ int intToStr(int x, char *str, int d)
     // add 0s at the beginning
     while (i < d)
         str[i++] = '0';
-
-    reverse(str, i);
     str[i] = '\0';
-    return i;
+    reverse(str, i);
+    return (i);
 }
 
 // Converts a floating point number to string.
@@ -91,32 +90,19 @@ void ftoa(float n, char *res, int afterpoint)
         // to handle cases like 233.007
         fpart = fpart * pow(10, afterpoint);
 
-        intToStr((int)fpart, res+i+1, afterpoint);
+        intToStr((int)fpart, res+ i + 1, afterpoint);
     }
 }
 
-// driver program to test above funtion
-//int main()
-//{
-//    char res[20];
-//    float n = 233.007;
-//    ftoa(n, res, 4);
-//    printf("\n\"%s\"\n", res);
-//    return 0;
-//}
-//
-//int main()
-//{
-//    printf("%g\n", 20.);
-//    return(0);
-//}
 int main()
 {
-    char *res = ft_memalloc(sizeof(char) * 1000);
-    float n = 233.1274564564564564564564564;
-    ftoa(n, res, 20);
+    char *res = ft_memalloc(sizeof(int) * 1000);
+    float n = 233.127;//4564564564564564564564;
+    ftoa(n, res, 3);
     printf("%s\n", res);
-    printf("%d\n",8546);
+    printf("%.3f\n",n);
+    printf("%d\n",(int)(345.564));
+    //printf("%d\n",8546);
    // ft_putstr("res\n");
     return 0;
 }
