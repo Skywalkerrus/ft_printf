@@ -392,8 +392,8 @@ void	ft_printf(char *hu, ...)
 	if (ac > 0)
 	{
 		av[0] = 0;
-		printf("printf: %");
-		ft_printf("ft_printf: %");
+		printf("printf: %X\n", 0x257);
+		ft_printf("ft_printf: %X\n", 0x257);
 	}
 	return (0);
 } */

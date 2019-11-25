@@ -10,61 +10,41 @@
 #                                                                              #
 # **************************************************************************** #
 
-C = clang
+SRC = main.c
+OBJ = $(SRC:.c=.o)
+
+SRCDIR = srcs
+OBJDIR = objs
+
+SRCS = $(addprefix $(SRCDIR)/, $(SRC))
+OBJS = $(addprefix $(OBJDIR)/, $(OBJ))
+HEADER = -I includes
+
+CC = gcc
+CFLAGS = -c -Wall -Wextra -Werror
 
 NAME = libftprintf.a
 
-FLAGS = -Wall -Wextra -Werror -O2
-
-LIBFT = libft
-
-LIBFT2 = obj/libft
-
-DIR_S = srcs
-
-DIR_O = obj
-
-HEADER = ft_printf.h
-
-SOURCES = main.c
-SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
-
-OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
+.PHONY: all clean fclean re
+	.SUFFIXES: .c .o
 
 all: $(NAME)
 
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+		@/bin/mkdir -p $(OBJDIR)
+			@$(CC) $(CFLAGS) $(HEADER) $< -o $@
+
 $(NAME): $(OBJS)
-		@make -C $(LIBFT)
-		@cp libft/libft.a ./$(NAME)
-		@ar rc $(NAME) $(OBJS)
-		@ranlib $(NAME)
+	@ar rcs $@ $^
+	@ranlib $@
+	@echo "[ft_printf - compleate!]"
 
-$(DIR_O)/%.o: $(DIR_S)/%.c $(HEADER)/ft_printf.h
-		@mkdir -p obj
-		@$(CC) $(FLAGS) -I $(HEADER) -o $@ -c $<
+#clean:
+#		@/bin/rm -rf $(OBJDIR)
+#			@echo "[ft_printf - clean]"
 
-test:
-		@make all misc/main.c
+#fclean: clean
+#		@/bin/rm -f $(NAME)
+#			@echo "[ft_printf - fclean]"
 
-
-norme:
-		norminette ./libft/
-		@echo
-		norminette ./$(HEADER)/
-		@echo
-		norminette ./$(DIR_S)/
-
-clean:
-		@rm -f $(OBJS)
-		#@rm -rf $(DIR_O)
-		@make clean -C $(LIBFT2)
-		@make clean -C $(LIBFT)
-
-fclean: clean
-		@rm -f $(NAME)
-		@make fclean -C $(LIBFT)
-		@make fclean -C $(LIBFT2)
-
-re: fclean all
-
-.PHONY: fclean re norme all clean
+#re: fclean all
