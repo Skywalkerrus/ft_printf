@@ -12,6 +12,8 @@
 
 #include "ft_printf.h"
 
+
+
 double	part_int_ten(double n, int size)
 {
     double mod;
@@ -29,7 +31,7 @@ int        int_part(double n, char *s, double mod)
 {
 
     int     rank;
-	int i = 0;
+	int i = 1;
 
     while ((int)n != 0)
     {
@@ -44,12 +46,11 @@ int        int_part(double n, char *s, double mod)
 
 int        float_part(double n, char *s, int i, int rigor)
 {
-
     int j;
     int tmp;
 
 
-    n = (n -(int)n) * 10;
+    n = (n - (int)n) * 10;
     j = 0;
     s[i++] = '.';
     while(j < rigor)
@@ -66,21 +67,32 @@ void float_to_str(double n, char *str, int rigor) {
 	int i;
 	int size;
 	double mod;
+	int minus;
 
+    minus = 0;
 	size = 1;
+	if (n < 0)
+    {
+	    n = -n;
+	    minus = 1;
+    }
 	mod = part_int_ten(n, size);
+    i = 0;
+	if(minus)
+	    str[i++] = '-';
 	i = int_part(n, str, mod);
 	i = float_part(n, str, i, rigor);
 	str[i++] = '\0';
+	ft_putstr(str);
 }
 
 int main() {
 	char *str = (char *)malloc(sizeof(int) *1000);
 
-	float_to_str(275.1234,str,7);
-	ft_putstr(str);
+	float_to_str(-275.1234,str,100);
+	ft_putchar('\n');
+	printf("%+0.6f\n",-275.1234);
 
 	return(0);
 
 }
-
