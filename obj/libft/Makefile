@@ -6,7 +6,7 @@
 #    By: bantario <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/04 18:34:54 by bantario          #+#    #+#              #
-#    Updated: 2019/11/15 16:37:28 by bantario         ###   ########.fr        #
+#    Updated: 2019/11/26 16:06:45 by bantario         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME = libft.a
 all: $(NAME)
 
 $(NAME):
-	@gcc -Wall -Wextra -I $(HEAD) -c $(SRC)
+	@gcc -Wall -Wextra -Werror -I $(HEAD) -c $(SRC)
 	@ar rc $(NAME) $(OFF)
 	@ranlib $(NAME)
 clean:

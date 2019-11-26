@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/11/15 18:46:48 by bantario         ###   ########.fr       */
+/*   Updated: 2019/11/26 19:22:03 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "stdlib.h"
 #include <stdarg.h>
 
-void	print_int(char *hu, va_list ap)
+void	print_int(char *hu, va_list ap, t_node *list)
 {
 	int		dval;
 
@@ -24,10 +24,11 @@ void	print_int(char *hu, va_list ap)
 	{
 		dval = va_arg(ap, int);
 		ft_putnbr(dval);
+		list->len = ft_strlen(ft_itoa(dval));
 	}
 }
 
-void	print_str(char *hu, va_list ap)
+void	print_str(char *hu, va_list ap, t_node *list)
 {
 	char	*str;
 
@@ -35,10 +36,11 @@ void	print_str(char *hu, va_list ap)
 	{
 		str = va_arg(ap, char*);
 		ft_putstr(str);
+		list->len = ft_strlen(str);
 	}
 }
 
-void	print_symb(char *hu, va_list ap)
+void	print_symb(char *hu, va_list ap, t_node *list)
 {
 	char	cval;
 
@@ -46,10 +48,11 @@ void	print_symb(char *hu, va_list ap)
 	{
 		cval = va_arg(ap, int);
 		ft_putchar(cval);
+		list->len = 1; 
 	}
 }
 
-void	print_ld(char *hu, va_list ap)
+void	print_ld(char *hu, va_list ap, t_node *list)
 {
 	long int lval;
 
@@ -60,11 +63,12 @@ void	print_ld(char *hu, va_list ap)
 		{
 			lval = va_arg(ap, unsigned long long int);
 			ft_putnbr(lval);
+			list->len = ft_strlen(ft_itoa(lval));
 		}
 	}
 }
 
-void	print_long_l(char *hu, va_list ap)
+void	print_long_l(char *hu, va_list ap, t_node *list)
 {
 	long long int lval;
 
@@ -78,12 +82,13 @@ void	print_long_l(char *hu, va_list ap)
 			{
 				lval = va_arg(ap, unsigned long long int);
 				ft_putnbr(lval);
+				list->len = ft_strlen(ft_itoa(lval));
 			}
 		}
 	}
 }
 
-void	print_llu(char *hu, va_list ap)
+void	print_llu(char *hu, va_list ap, t_node *list)
 {
 	unsigned long long int llu;
 
@@ -97,12 +102,13 @@ void	print_llu(char *hu, va_list ap)
 			{
 				llu = va_arg(ap, unsigned long long int);
 				ft_putnbr_2(llu);
+				list->len = ft_strlen(ft_itoa(llu));
 			}
 		}
 	}
 }
 
-void	print_i(char *hu, va_list ap)
+void	print_i(char *hu, va_list ap, t_node *list)
 {
 	signed int		chislo;
 	char			*hex_to_numb;
@@ -112,6 +118,7 @@ void	print_i(char *hu, va_list ap)
 		chislo = va_arg(ap, signed int);
 		hex_to_numb = ft_itoa(chislo);
 		ft_putnbr(ft_atoi(hex_to_numb));
+		list->len = ft_strlen(hex_to_numb);
 	}
 }
 
@@ -303,15 +310,28 @@ void	print_X(char *hu, va_list ap)
 	}
 }
 
-void	cast_func(char *hu, va_list ap, func *mass)
+void	print_float(char *hu, va_list ap)
 {
-	mass[1](hu, ap);
-	mass[2](hu, ap);
-	mass[3](hu, ap);
-	mass[5](hu, ap);
-	mass[6](hu, ap);
-	mass[7](hu, ap);
-	mass[8](hu, ap);
+	char *str;
+	double fl;
+
+	if (*hu == 'f')
+	{
+		str = (char *)malloc(sizeof(int) *1000);
+		fl = va_arg(ap, double);
+		float_to_str(fl, str, 6);
+	}
+}
+
+void	cast_func(char *hu, va_list ap, func *mass, t_node *list)
+{
+	mass[1](hu, ap, list);
+	mass[2](hu, ap, list);
+	mass[3](hu, ap, list);
+	mass[5](hu, ap, list);
+	mass[6](hu, ap, list);
+	mass[7](hu, ap, list);
+	mass[8](hu, ap, list);
 	mass[9](hu, ap);
 	mass[10](hu, ap);
 	mass[11](hu);
@@ -322,6 +342,7 @@ void	cast_func(char *hu, va_list ap, func *mass)
 	mass[16](hu, ap);
 	mass[17](hu, ap);
 	mass[18](hu, ap);
+	mass[19](hu, ap);
 }
 
 void	fundament(func *mass)
@@ -344,13 +365,17 @@ void	fundament(func *mass)
 	mass[16] = print_lli;
 	mass[17] = print_x;
 	mass[18] = print_X;
+	mass[19] = print_float;
 }
 
-void	ft_printf(char *hu, ...)
+int			ft_printf(char *hu, ...)
 {
 	func *mass;
 	va_list ap;
+	t_node  *list;
 
+	list = (t_node *)malloc(sizeof(t_node));
+	list->len = 0;
 	mass = (void *) malloc(sizeof(void) * 250);
 	va_start(ap, hu);
 	mass[0] = fundament;
@@ -362,7 +387,7 @@ void	ft_printf(char *hu, ...)
 		else if (*hu == '%')
 		{
 			hu++;
-			mass[4](hu, ap, mass);
+			mass[4](hu, ap, mass, list);
 			if (*hu == 'l' || *hu == 'h')
 			{
 				hu++;
@@ -376,11 +401,12 @@ void	ft_printf(char *hu, ...)
 	}
 	free(mass);
 	va_end(ap);
-	return;
+	return(list->len);
 }
 
-/*int		main(int ac, char **av)
+int		main(int ac, char **av)
 {
+	int	f;
 	//char a;
 	//int	d;
 	//long long int l;
@@ -392,8 +418,9 @@ void	ft_printf(char *hu, ...)
 	if (ac > 0)
 	{
 		av[0] = 0;
-		printf("printf: %");
-		ft_printf("ft_printf: %");
+		printf("printf: %d\n", 275);
+		f = ft_printf("ft_printf: %d\n", 275);
+		//ft_printf("F: %d\n", f);
 	}
 	return (0);
-} */
+}

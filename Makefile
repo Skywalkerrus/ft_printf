@@ -6,7 +6,7 @@
 #    By: bantario <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 13:57:13 by bantario          #+#    #+#              #
-#    Updated: 2019/09/05 15:05:39 by bantario         ###   ########.fr        #
+#    Updated: 2019/11/26 16:08:41 by bantario         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ C = clang
 
 NAME = libftprintf.a
 
-FLAGS = -Wall -Wextra -Werror -O2
+FLAGS = -Wall -Wextra -Werror
 
 LIBFT = libft
 
@@ -56,7 +56,6 @@ norme:
 
 clean:
 		@rm -f $(OBJS)
-		#@rm -rf $(DIR_O)
 		@make clean -C $(LIBFT2)
 		@make clean -C $(LIBFT)
 
