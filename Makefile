@@ -6,7 +6,7 @@
 #    By: bantario <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 13:57:13 by bantario          #+#    #+#              #
-#    Updated: 2019/11/26 16:08:41 by bantario         ###   ########.fr        #
+#    Updated: 2019/11/27 16:28:11 by bantario         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ C = clang
 
 NAME = libftprintf.a
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -02
 
 LIBFT = libft
 
@@ -26,7 +26,7 @@ DIR_O = obj
 
 HEADER = ft_printf.h
 
-SOURCES = main.c
+SOURCES = main.c float.c
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
@@ -41,7 +41,7 @@ $(NAME): $(OBJS)
 
 $(DIR_O)/%.o: $(DIR_S)/%.c $(HEADER)/ft_printf.h
 		@mkdir -p obj
-		@$(CC) $(FLAGS) -I $(HEADER) -o $@ -c $<
+		@@$(CC) $(FLAGS) -I $(HEADER) -o $@ -c $<
 
 test:
 		@make all misc/main.c

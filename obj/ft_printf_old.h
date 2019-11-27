@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:36:21 by bantario          #+#    #+#             */
-/*   Updated: 2019/11/27 16:19:22 by bantario         ###   ########.fr       */
+/*   Updated: 2019/10/18 15:00:20 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,6 @@
 #define FT_PRINTF_H
 
 #include "libft/libft.h"
-#include "stdlib.h"
-#include <stdarg.h>
-typedef struct s_node
-{
-	int len;
-} t_node;
 typedef unsigned long long int size_b;
 typedef void (*func)();
-double		part_int_ten(double n, int size);
-int			int_part(double n, char *s, double mod);
-int			float_part(double n, char *s, int i, int rigor);
-void		float_to_str(double n, char *str, int rigor);
-int			ft_printf(char *hu, ...);
 #endif
