@@ -27,11 +27,10 @@ double	part_int_ten(double n, int size)
     return(mod);
 }
 
-int        int_part(double n, char *s, double mod)
+int        int_part(double n, char *s, double mod, int i)
 {
 
     int     rank;
-	int i = 1;
 
     while ((int)n != 0)
     {
@@ -65,22 +64,23 @@ int        float_part(double n, char *s, int i, int rigor)
 
 void float_to_str(double n, char *str, int rigor) {
 	int i;
-	int size;
 	double mod;
 	int minus;
+    int size;
 
+    i = 0;
+    size = 1;
     minus = 0;
-	size = 1;
 	if (n < 0)
     {
 	    n = -n;
 	    minus = 1;
+        str[i++] = '-';
     }
 	mod = part_int_ten(n, size);
-    i = 0;
-	if(minus)
-	    str[i++] = '-';
-	i = int_part(n, str, mod);
+	//if(minus)
+	  //  str[i++] = '-';
+	i = int_part(n, str, mod, i);
 	i = float_part(n, str, i, rigor);
 	str[i++] = '\0';
 	ft_putstr(str);
@@ -89,10 +89,8 @@ void float_to_str(double n, char *str, int rigor) {
 int main() {
 	char *str = (char *)malloc(sizeof(int) *1000);
 
-	float_to_str(-275.1234,str,100);
+	float_to_str(275.1234,str,7);
 	ft_putchar('\n');
 	printf("%+0.6f\n",-275.1234);
-
 	return(0);
-
 }
