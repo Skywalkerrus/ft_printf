@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/11/27 18:08:59 by bantario         ###   ########.fr       */
+/*   Updated: 2019/11/27 18:53:45 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	print_symb(char *hu, va_list ap, t_node *list)
 
 void	print_ld(char *hu, va_list ap, t_node *list)
 {
-	long int lval;
+	long long int lval;
 
 	if (*hu == 'l')
 	{
@@ -449,7 +449,7 @@ int			ft_printf(char *hu, ...)
 	return(list->len);
 }
 
-int		main(int ac, char **av)
+/*int		main(int ac, char **av)
 {
 	int	f;
 	//char a;
@@ -467,7 +467,7 @@ int		main(int ac, char **av)
 		printf("1F: %d\n", f);
 		f = ft_printf("%");
 		printf("2F: %d\n", f);
-		/*f = printf("%s\n", "1234");
+		f = printf("%s\n", "1234");
 		printf("2F: %d\n", f);
 		f = ft_printf("%s\n", "1234");
 		printf("2iF: %d\n", f);
@@ -478,7 +478,7 @@ int		main(int ac, char **av)
 		f = printf("\\n");
 		printf("4F: %d\n", f);
 		f = ft_printf("\\n");
-		printf("4iF: %d\n", f); */
+		printf("4iF: %d\n", f); 
 	}
 	return (0);
-} 
+} */

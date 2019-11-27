@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/11/27 17:04:35 by bantario         ###   ########.fr       */
+/*   Updated: 2019/11/27 18:53:45 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	print_symb(char *hu, va_list ap, t_node *list)
 
 void	print_ld(char *hu, va_list ap, t_node *list)
 {
-	long int lval;
+	long long int lval;
 
 	if (*hu == 'l')
 	{
@@ -282,10 +282,13 @@ void	Func2(int n, t_node *list)
 	return;
 }
 
-void    Func3(int n)
+void    Func3(int n, t_node *list)
 {
 	if (n != 0)
-		Func3(n / 16);
+	{
+		list->len++;
+		Func3(n / 16, list);
+	}
 	else
 		return;
 	if ((n % 16) == 10)
@@ -336,7 +339,7 @@ void	print_X(char *hu, va_list ap, t_node *list)
 		dec = va_arg(ap, int);
 		if (dec == 0)
 			print_zero(list);
-		Func3(dec);
+		Func3(dec, list);
 	}
 }
 
@@ -351,6 +354,12 @@ void	print_float(char *hu, va_list ap)
 		fl = va_arg(ap, double);
 		float_to_str(fl, str, 6);
 	}
+}
+
+void	one_proc(char *hu, t_node *list)
+{
+	if (*hu == '\0')
+		list->len = 0;
 }
 
 void	cast_func(char *hu, va_list ap, func *mass, t_node *list)
@@ -373,6 +382,7 @@ void	cast_func(char *hu, va_list ap, func *mass, t_node *list)
 	mass[17](hu, ap, list);
 	mass[18](hu, ap, list);
 	mass[19](hu, ap);
+	mass[20](hu, list);
 }
 
 void	fundament(func *mass)
@@ -396,6 +406,7 @@ void	fundament(func *mass)
 	mass[17] = print_x;
 	mass[18] = print_X;
 	mass[19] = print_float;
+	mass[20] = one_proc;
 }
 
 int			ft_printf(char *hu, ...)
@@ -452,10 +463,10 @@ int			ft_printf(char *hu, ...)
 	if (ac > 0)
 	{
 		av[0] = 0;
-		f = printf("%x\n", 0);
+		f = printf("%");
 		printf("1F: %d\n", f);
-		f = ft_printf("%x\n", 0);
-		printf("1iF: %d\n", f);
+		f = ft_printf("%");
+		printf("2F: %d\n", f);
 		f = printf("%s\n", "1234");
 		printf("2F: %d\n", f);
 		f = ft_printf("%s\n", "1234");
@@ -467,7 +478,7 @@ int			ft_printf(char *hu, ...)
 		f = printf("\\n");
 		printf("4F: %d\n", f);
 		f = ft_printf("\\n");
-		printf("4iF: %d\n", f);
+		printf("4iF: %d\n", f); 
 	}
 	return (0);
 } */
