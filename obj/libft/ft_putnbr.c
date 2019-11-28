@@ -6,13 +6,13 @@
 /*   By: jcartwri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 20:49:30 by jcartwri          #+#    #+#             */
-/*   Updated: 2019/10/30 17:07:07 by bantario         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:46:59 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr(long int n)
+void	ft_putnbr(long long int n)
 {
 	long long int nbr;
 

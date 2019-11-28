@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/11/27 18:53:45 by bantario         ###   ########.fr       */
+/*   Updated: 2019/11/28 19:23:41 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,15 @@ void	print_str(char *hu, va_list ap, t_node *list)
 	if (*hu == 's')
 	{
 		str = va_arg(ap, char*);
-		ft_putstr(str);
-		list->len = (list->len) + ft_strlen(str);
+		if (str == NULL)
+		{
+			ft_putstr("(null)");
+			list->len = list->len + 6;
+		} else 
+		{
+			ft_putstr(str);
+			list->len = (list->len) + ft_strlen(str);
+		}
 	}
 }
 
@@ -62,6 +69,10 @@ void	print_ld(char *hu, va_list ap, t_node *list)
 		if (*hu == 'd')
 		{
 			lval = va_arg(ap, unsigned long long int);
+			/*if (lval > 0)
+				list->len--;
+			else
+				list->len++;*/
 			ft_putnbr(lval);
 			list->len = list->len + ft_strlen(ft_itoa(lval));
 		}
@@ -70,7 +81,7 @@ void	print_ld(char *hu, va_list ap, t_node *list)
 
 void	print_long_l(char *hu, va_list ap, t_node *list)
 {
-	long long int lval;
+	unsigned long long int lval;
 
 	if (*hu == 'l')
 	{
@@ -81,7 +92,7 @@ void	print_long_l(char *hu, va_list ap, t_node *list)
 			if (*hu == 'd')
 			{
 				lval = va_arg(ap, unsigned long long int);
-				ft_putnbr(lval);
+				ft_putnbr_4(lval);
 				list->len = list->len + ft_strlen(ft_itoa(lval));
 			}
 		}
@@ -131,7 +142,6 @@ void	Func(unsigned int n, t_node *list)
 	}
 	else
 		return;
-	list->len++;
 	ft_putnbr(n % 8);
 	return;
 }
@@ -154,11 +164,23 @@ void	print_o(char *hu, va_list ap, t_node *list)
 
 void	print_u(char *hu, va_list ap, t_node *list)
 {
-	int	uu;
+	long long int	uu;
 
 	if (*hu == 'u')
 	{
-		uu = va_arg(ap, unsigned long long int);
+		uu = va_arg(ap, long long int);
+		if (uu < 0)
+		{
+			ft_putstr("4294967295");
+			list->len = list->len + 10;
+			return;
+		}
+		if (uu > 4294967295)
+		{
+			ft_putchar('0');
+			list->len++;
+			return;
+		}
 		ft_putnbr(uu);
 		list->len = list->len + ft_strlen(ft_itoa(uu));
 	}
@@ -175,15 +197,15 @@ void	print_procent(char *hu, t_node *list)
 
 void	print_lu(char *hu, va_list ap, t_node *list)
 {
-	unsigned long lu;
+	unsigned long long lu;
 	if (*hu == 'l')
 	{
 		hu++;
 		if (*hu == 'u')
 		{
-			lu = va_arg(ap, unsigned long);
-			ft_putnbr(lu);
-			list->len = list->len + ft_strlen(ft_itoa(lu));
+			lu = va_arg(ap, unsigned long long);
+			ft_putnbr_2(lu);
+			list->len = list->len + ft_strlen(ft_itoa_2(lu));
 		}
 	}
 }
@@ -256,15 +278,8 @@ void	print_lli(char *hu, va_list ap, t_node *list)
 	}
 }
 
-void	Func2(int n, t_node *list)
+void	Func2_next(long long n, t_node *list)
 {
-	if (n != 0)
-	{
-		list->len++;
-		Func2(n / 16, list);
-	}
-	else
-		return;
 	if ((n % 16) == 15)
 		ft_putchar('f');
 	else if ((n % 16) == 10)
@@ -278,19 +293,27 @@ void	Func2(int n, t_node *list)
 	else if ((n % 16) == 14)
 		ft_putchar('e');
 	else
-		ft_putnbr(n % 16);
-	return;
+		if (list->when_pr > 7)
+			ft_putnbr(n % 16);
+		else
+			list->len--;
 }
 
-void    Func3(int n, t_node *list)
+void	Func2(long long n, t_node *list)
 {
 	if (n != 0)
 	{
 		list->len++;
-		Func3(n / 16, list);
+		Func2(n / 16, list);
+		list->when_pr++;
 	}
 	else
 		return;
+	Func2_next(n, list);
+}
+
+void	Func3_next(long long int n, t_node *list)
+{
 	if ((n % 16) == 10)
 		ft_putchar('A');
 	else if ((n % 16) == 11)
@@ -304,8 +327,24 @@ void    Func3(int n, t_node *list)
 	else if ((n % 16) == 15)
 		ft_putchar('F');
 	else
-		ft_putnbr(n % 16);
-	return;
+		if (list->when_pr > 7)
+			ft_putnbr(n % 16);
+		else
+			list->len--;
+}
+
+
+void    Func3(long long int n, t_node *list)
+{
+	if (n != 0)
+	{
+		list->len++;
+		Func3(n / 16, list);
+		list->when_pr++;
+	}
+	else
+		return;
+	Func3_next(n, list);
 }
 
 void	print_zero(t_node *list)
@@ -317,29 +356,47 @@ void	print_zero(t_node *list)
 
 void	print_x(char *hu, va_list ap, t_node *list)
 {
-	int dec;
+	long long int		dec;
+	char	*str;
 
 	dec = 0;
 	if (*hu == 'x')
 	{
 		dec = va_arg(ap, int);
+		str = ft_itoa(dec);
+		if (str[0] == '-')
+		{
+			dec = (-1) * dec * 4294967295;
+			list->when_pr = 1;
+		} else
+			list->when_pr = 8;
 		if (dec == 0)
 			print_zero(list);
 		Func2(dec, list);
+		free(str);
 	}
 }
 
 void	print_X(char *hu, va_list ap, t_node *list)
 {
-	int dec;
+	long long int dec;
+	char *str;
 
 	dec = 0;
 	if (*hu == 'X')
 	{
 		dec = va_arg(ap, int);
+		str = ft_itoa(dec);
+		if (str[0] == '-')
+		{
+			dec = (-1) * dec * 4294967295;
+			list->when_pr = 1;
+		} else
+			list->when_pr = 8;
 		if (dec == 0)
 			print_zero(list);
 		Func3(dec, list);
+		free(str);
 	}
 }
 
@@ -463,22 +520,10 @@ int			ft_printf(char *hu, ...)
 	if (ac > 0)
 	{
 		av[0] = 0;
-		f = printf("%");
+		f = printf("pr: %lu\n", 18446744073709551574);
 		printf("1F: %d\n", f);
-		f = ft_printf("%");
+		f = ft_printf("ft: %lu\n", 18446744073709551574);
 		printf("2F: %d\n", f);
-		f = printf("%s\n", "1234");
-		printf("2F: %d\n", f);
-		f = ft_printf("%s\n", "1234");
-		printf("2iF: %d\n", f);
-		f = printf("my string: %s, my int: %d\n", "syka blyat", 0);
-		printf("3F: %d\n", f);
-		f = ft_printf("my string: %s, my int: %d\n", "syka blyat", 0);
-		printf("3iF: %d\n", f);
-		f = printf("\\n");
-		printf("4F: %d\n", f);
-		f = ft_printf("\\n");
-		printf("4iF: %d\n", f); 
 	}
 	return (0);
 } */

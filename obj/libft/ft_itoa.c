@@ -6,13 +6,13 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 13:24:16 by bantario          #+#    #+#             */
-/*   Updated: 2019/10/21 16:58:36 by bantario         ###   ########.fr       */
+/*   Updated: 2019/11/28 19:17:35 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void		it_ng(int *n, int *negative)
+static void		it_ng(long long int *n, int *negative)
 {
 	if (*n < 0)
 	{
@@ -21,12 +21,12 @@ static void		it_ng(int *n, int *negative)
 	}
 }
 
-char			*ft_itoa(int n)
+char			*ft_itoa(long long int n)
 {
-	char	*chs;
-	int		size;
-	int		y;
-	int		neg;
+	char			*chs;
+	int				size;
+	long long int	y;
+	int				neg;
 
 	neg = 0;
 	size = 2;
