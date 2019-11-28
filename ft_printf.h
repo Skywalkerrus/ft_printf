@@ -21,10 +21,21 @@
 
 // scywalkers
 typedef unsigned long long int size_b;
-//
+typedef void (*func)();
+
+
+//defines
+# define BUFF_SIZE 1024
+# define STDOUT 1
+# define ARGS_COUNT 21
+# define LENGTH_HH 1
+# define LENGTH_H 2
+# define LENGTH_LL 4
+# define LENGTH_L 3
+# define LENGTH_J 6
+# define LENGTH_Z 5
 
 // structurs
-# define BUFF_SIZE 1024
 
 typedef struct	s_flags
 {
@@ -41,6 +52,22 @@ typedef struct	s_flags
     int			bytes;
     int			total_bytes;
 }				t_flags;
+
+
+typedef struct	s_types
+{
+    char		name;
+    int			(*f)();
+}				t_types;
+
+
+
+
+//prototypes
+double	part_int_ten(double n, int *size);
+void        int_part(double *n, char **str, double mod, int *i);
+void        float_part(double n, char **str, int *i, int rigor);
+int     float_to_str(double n, char **s, int rigor);
 
 
 
