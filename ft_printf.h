@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:36:21 by bantario          #+#    #+#             */
-/*   Updated: 2019/11/28 15:30:31 by bantario         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:19:08 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_node
 {
 	int len;
 	int	when_pr;
+	int w_p2;
 } t_node;
 typedef unsigned long long int size_b;
 typedef void (*func)();
