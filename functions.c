@@ -506,6 +506,7 @@ int			ft_printf(char *hu, ...)
 	return(list->len);
 }
 
+
 /*int		main(int ac, char **av)
 {
 	int	f;
