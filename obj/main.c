@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 13:54:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/11/28 19:23:41 by bantario         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:56:56 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,6 @@ void	print_ld(char *hu, va_list ap, t_node *list)
 		if (*hu == 'd')
 		{
 			lval = va_arg(ap, unsigned long long int);
-			/*if (lval > 0)
-				list->len--;
-			else
-				list->len++;*/
 			ft_putnbr(lval);
 			list->len = list->len + ft_strlen(ft_itoa(lval));
 		}
@@ -419,6 +415,83 @@ void	one_proc(char *hu, t_node *list)
 		list->len = 0;
 }
 
+void	print_l_x(char *hu, va_list ap, t_node *list)
+{
+	long long int	dec;
+	char			*str;
+
+	if (*hu == 'l' && *++hu == 'x')
+	{
+		dec = va_arg(ap, long long int);
+		str = ft_itoa(dec);
+		if (str[0] == '-')
+		{
+			dec = (-1) * dec * 4294967295;
+			list->when_pr = 1;
+		}
+		else
+			list->when_pr = 8;
+		if (dec == 0)
+			print_zero(list);
+		Func2(dec, list);
+		free(str);
+	}
+}
+
+void	print_l_l_x(char *hu, va_list ap, t_node *list)
+{
+	long long int	dec;
+	char			*str;
+
+	if (*hu == 'l')
+	{
+		hu++;
+		if (*hu == 'l' && *++hu == 'x')
+		{
+			dec = va_arg(ap, long long int);
+			str = ft_itoa(dec);
+			if (str[0] == '-')
+			{
+				dec = (-1) * dec * 4294967295;
+				list->when_pr = 1;
+			}
+			else
+				list->when_pr = 8;
+			if (dec == 0)
+				print_zero(list);
+			Func2(dec, list);
+			free(str);
+		}
+	}
+}
+
+void	print_l_l_X(char *hu, va_list ap, t_node *list)
+{
+	long long int	dec;
+	char			*str;
+
+	if (*hu == 'l')
+	{
+		hu++;
+		if (*hu == 'l' && *++hu == 'X')
+		{
+			dec = va_arg(ap, long long int);
+			str = ft_itoa(dec);
+			if (str[0] == '-')
+			{
+				dec = (-1) * dec * 4294967295;
+				list->when_pr = 1;
+			}
+			else
+				list->when_pr = 8;
+			if (dec == 0)
+				print_zero(list);
+			Func3(dec, list);
+			free(str);
+		}
+	}
+}
+
 void	cast_func(char *hu, va_list ap, func *mass, t_node *list)
 {
 	mass[1](hu, ap, list);
@@ -440,6 +513,9 @@ void	cast_func(char *hu, va_list ap, func *mass, t_node *list)
 	mass[18](hu, ap, list);
 	mass[19](hu, ap);
 	mass[20](hu, list);
+	mass[21](hu, ap, list);
+	mass[22](hu, ap, list);
+	mass[23](hu, ap, list);
 }
 
 void	fundament(func *mass)
@@ -464,6 +540,9 @@ void	fundament(func *mass)
 	mass[18] = print_X;
 	mass[19] = print_float;
 	mass[20] = one_proc;
+	mass[21] = print_l_x;
+	mass[22] = print_l_l_x;
+	mass[23] = print_l_l_X;
 }
 
 int			ft_printf(char *hu, ...)
@@ -487,13 +566,12 @@ int			ft_printf(char *hu, ...)
 		}
 		else if (*hu == '%')
 		{
-			//list->len++;
 			hu++;
 			mass[4](hu, ap, mass, list);
 			if (*hu == 'l' || *hu == 'h')
 			{
 				hu++;
-				if (*hu == 'u' || *hu == 'i')
+				if (*hu == 'u' || *hu == 'i' || *hu == 'x')
 					hu--;
 				if (*hu != 'd')
 					hu++;
@@ -520,9 +598,9 @@ int			ft_printf(char *hu, ...)
 	if (ac > 0)
 	{
 		av[0] = 0;
-		f = printf("pr: %lu\n", 18446744073709551574);
+		f = printf("pr: %llX\n", 4294967296);
 		printf("1F: %d\n", f);
-		f = ft_printf("ft: %lu\n", 18446744073709551574);
+		f = ft_printf("ft: %llX\n", 4294967296);
 		printf("2F: %d\n", f);
 	}
 	return (0);
