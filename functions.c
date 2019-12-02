@@ -16,24 +16,26 @@
 #include "stdlib.h"
 #include <stdarg.h>
 
-void	print_int(char *hu, va_list ap, t_node *list)
+int	print_int(va_list ap, t_node *list)
 {
 	int		dval;
-
-	if (*hu == 'd')
-	{
+    //int     width;
+	//if (*hu == 'd')
+//	{
 		dval = va_arg(ap, int);
+
 		ft_putnbr(dval);
 		list->len = (list->len) + ft_strlen(ft_itoa(dval));
-	}
+//	}
+    return (0);
 }
 
-void	print_str(char *hu, va_list ap, t_node *list)
+int	print_str( va_list ap, t_node *list)
 {
 	char	*str;
 
-	if (*hu == 's')
-	{
+//	if (*hu == 's')
+//	{
 		str = va_arg(ap, char*);
 		if (str == NULL)
 		{
@@ -44,10 +46,11 @@ void	print_str(char *hu, va_list ap, t_node *list)
 			ft_putstr(str);
 			list->len = (list->len) + ft_strlen(str);
 		}
-	}
+	//}
+    return (0);
 }
 
-void	print_symb(char *hu, va_list ap, t_node *list)
+int	print_symb(char *hu, va_list ap, t_node *list)
 {
 	char	cval;
 
@@ -57,6 +60,7 @@ void	print_symb(char *hu, va_list ap, t_node *list)
 		ft_putchar(cval);
 		list->len++; 
 	}
+    return (0);
 }
 
 void	print_ld(char *hu, va_list ap, t_node *list)
@@ -119,18 +123,19 @@ void	print_llu(char *hu, va_list ap, t_node *list)
 	}
 }
 
-void	print_i(char *hu, va_list ap, t_node *list)
+int	print_i( va_list ap, t_node *list)
 {
 	signed int		chislo;
 	char			*hex_to_numb;
 
-	if (*hu == 'i')
-	{
+//	if (*hu == 'i')
+//	{
 		chislo = va_arg(ap, signed int);
 		hex_to_numb = ft_itoa(chislo);
 		ft_putnbr(ft_atoi(hex_to_numb));
 		list->len = list->len + ft_strlen(hex_to_numb);
-	}
+//	}
+    return (0);
 }
 
 void	Func(unsigned int n, t_node *list)
@@ -146,7 +151,7 @@ void	Func(unsigned int n, t_node *list)
 	return;
 }
 
-void	print_o(char *hu, va_list ap, t_node *list)
+int	print_o(char *hu, va_list ap, t_node *list)
 {
 	int oo;
 
@@ -160,9 +165,10 @@ void	print_o(char *hu, va_list ap, t_node *list)
 		}
 		Func(oo, list);
 	}
+    return (0);
 }
 
-void	print_u(char *hu, va_list ap, t_node *list)
+int	print_u(char *hu, va_list ap, t_node *list)
 {
 	long long int	uu;
 
@@ -173,26 +179,28 @@ void	print_u(char *hu, va_list ap, t_node *list)
 		{
 			ft_putstr("4294967295");
 			list->len = list->len + 10;
-			return;
+			return(0);
 		}
 		if (uu > 4294967295)
 		{
 			ft_putchar('0');
 			list->len++;
-			return;
+			return(0);
 		}
 		ft_putnbr(uu);
 		list->len = list->len + ft_strlen(ft_itoa(uu));
 	}
+    return (0);
 }
 
-void	print_procent(char *hu, t_node *list)
+int	print_procent(char *hu, t_node *list)
 {
 	if (*hu == '%')
 	{
 		list->len++;
 		ft_putchar('%');
 	}
+    return (0);
 }
 
 void	print_lu(char *hu, va_list ap, t_node *list)
@@ -347,14 +355,14 @@ void    Func3(long long int n, t_node *list)
 	Func3_next(n, list);
 }
 
-void	print_zero(t_node *list)
+int	print_zero(t_node *list)
 {
 	ft_putchar('0');
 	list->len++;
-	return;
+	return(0);
 }
 
-void	print_x(char *hu, va_list ap, t_node *list)
+int	print_x(char *hu, va_list ap, t_node *list)
 {
 	long long int		dec;
 	char	*str;
@@ -375,9 +383,11 @@ void	print_x(char *hu, va_list ap, t_node *list)
 		Func2(dec, list);
 		free(str);
 	}
+    return(0);
+
 }
 
-void	print_X(char *hu, va_list ap, t_node *list)
+int	print_X(char *hu, va_list ap, t_node *list)
 {
 	long long int dec;
 	char *str;
@@ -398,20 +408,22 @@ void	print_X(char *hu, va_list ap, t_node *list)
 		Func3(dec, list);
 		free(str);
 	}
+    return(0);
+
 }
 
-void	print_float(char *hu, va_list ap)
-{
-	char *str;
-	double fl;
-
-	if (*hu == 'f')
-	{
-		str = (char *)malloc(sizeof(int) *1000);
-		fl = va_arg(ap, double);
-		float_to_str(fl, str, 6);
-	}
-}
+//void	print_float(char *hu, va_list ap)
+//{
+//	char *str;
+//	double fl;
+//
+//	if (*hu == 'f')
+//	{
+//		str = (char *)malloc(sizeof(int) *1000);
+//		fl = va_arg(ap, double);
+//		float_to_str(fl, str, 6);
+//	}
+//}
 
 void	one_proc(char *hu, t_node *list)
 {
@@ -438,7 +450,7 @@ void	cast_func(char *hu, va_list ap, func *mass, t_node *list)
 	mass[16](hu, ap, list);
 	mass[17](hu, ap, list);
 	mass[18](hu, ap, list);
-	mass[19](hu, ap);
+	//mass[19](hu, ap);
 	mass[20](hu, list);
 }
 
@@ -447,64 +459,64 @@ void	fundament(func *mass)
 	mass[1] = print_int;
 	mass[2] = print_str;
 	mass[3] = print_symb;
-	mass[4] = cast_func;
-	mass[5] = print_ld;
-	mass[6] = print_long_l;
+	//mass[4] = cast_func;
+	//mass[5] = print_ld;
+	//mass[6] = print_long_l;
 	mass[7] = print_i;
-	mass[8] = print_llu;
+	//mass[8] = print_llu;
 	mass[9] = print_o;
 	mass[10] = print_u;
 	mass[11] = print_procent;
-	mass[12] = print_lu;
-	mass[13] = print_hu;
-	mass[14] = print_hi;
-	mass[15] = print_hd;
-	mass[16] = print_lli;
+	//mass[12] = print_lu;
+	//mass[13] = print_hu;
+	//mass[14] = print_hi;
+	//mass[15] = print_hd;
+	//mass[16] = print_lli;
 	mass[17] = print_x;
 	mass[18] = print_X;
-	mass[19] = print_float;
-	mass[20] = one_proc;
+	//mass[19] = print_float;
+	//mass[20] = one_proc;
 }
 
-int			ft_printf(char *hu, ...)
-{
-	func *mass;
-	va_list ap;
-	t_node  *list;
-
-	list = (t_node *)malloc(sizeof(t_node));
-	list->len = 0;
-	mass = (void *) malloc(sizeof(void) * 250);
-	va_start(ap, hu);
-	mass[0] = fundament;
-	mass[0](mass);
-	while(*hu)
-	{
-		if (*hu != '%')
-		{
-			ft_putchar(*hu);
-			list->len++;
-		}
-		else if (*hu == '%')
-		{
-			//list->len++;
-			hu++;
-			mass[4](hu, ap, mass, list);
-			if (*hu == 'l' || *hu == 'h')
-			{
-				hu++;
-				if (*hu == 'u' || *hu == 'i')
-					hu--;
-				if (*hu != 'd')
-					hu++;
-			}
-		}
-		hu++;
-	}
-	free(mass);
-	va_end(ap);
-	return(list->len);
-}
+//int			ft_printf(char *hu, ...)
+//{
+//	func *mass;
+//	va_list ap;
+//	t_node  *list;
+//
+//	list = (t_node *)malloc(sizeof(t_node));
+//	list->len = 0;
+//	mass = (void *) malloc(sizeof(void) * 250);
+//	va_start(ap, hu);
+//	mass[0] = fundament;
+//	mass[0](mass);
+//	while(*hu)
+//	{
+//		if (*hu != '%')
+//		{
+//			ft_putchar(*hu);
+//			list->len++;
+//		}
+//		else if (*hu == '%')
+//		{
+//			//list->len++;
+//			hu++;
+//			mass[4](hu, ap, mass, list);
+//			if (*hu == 'l' || *hu == 'h')
+//			{
+//				hu++;
+//				if (*hu == 'u' || *hu == 'i')
+//					hu--;
+//				if (*hu != 'd')
+//					hu++;
+//			}
+//		}
+//		hu++;
+//	}
+//	free(mass);
+//	va_end(ap);
+//	return(list->len);
+//}
 
 
 /*int		main(int ac, char **av)

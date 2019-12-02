@@ -6,7 +6,7 @@
 /*   By: bantario <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 18:32:43 by bantario          #+#    #+#             */
-/*   Updated: 2019/10/21 19:35:19 by bantario         ###   ########.fr       */
+/*   Updated: 2019/11/28 19:22:26 by bantario         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+char				*ft_itoa_2(unsigned long long n);
 int					ft_isnegative(int y);
 int					ft_ctword(char const *s, char c);
 int					ft_isblanks(char c);
@@ -42,11 +43,14 @@ t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putchar_fd(char c, int fd);
-void				ft_putnbr(long int n);
+void				ft_putnbr(long long int n);
+void				ft_putnbr_2(unsigned long long int n);
+void				ft_putnbr_4(long long int n);
+int					ft_putnbr_3(long int n);
 void				ft_putendl(char const *s);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
-char				*ft_itoa(int n);
+char				*ft_itoa(long long int n);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_strtrim(char const *s);
 char				*ft_strjoin(char const *s1, char const *s2);

@@ -87,6 +87,7 @@ int     float_to_str(double n, char **s, int rigor)
 	float_part(n, &str, &i, rigor);
 	str[--i] = '\0';
 	*s = str;
+
     return (size);
 }
 

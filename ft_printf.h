@@ -21,7 +21,7 @@
 
 // scywalkers
 typedef unsigned long long int size_b;
-typedef void (*func)();
+typedef int (*func)();
 
 
 //defines
@@ -60,16 +60,34 @@ typedef struct	s_types
     int			(*f)();
 }				t_types;
 
-
+typedef struct s_node
+{
+    int len;
+    int	when_pr;
+    int w_p2;
+}   t_node;
 
 
 //prototypes
+
 double	part_int_ten(double n, int *size);
 void        int_part(double *n, char **str, double mod, int *i);
 void        float_part(double n, char **str, int *i, int rigor);
 int     float_to_str(double n, char **s, int rigor);
 
 
+
+//functions scywalkers
+
+int	print_int(va_list ap, t_node *list);
+int	print_str(va_list ap, t_node *list);
+int	print_symb(char *hu, va_list ap, t_node *list);
+int	print_i(va_list ap, t_node *list);
+int	print_o(char *hu, va_list ap, t_node *list);
+int	print_u(char *hu, va_list ap, t_node *list);
+int	print_x(char *hu, va_list ap, t_node *list);
+int	print_procent(char *hu, t_node *list);
+int	print_X(char *hu, va_list ap, t_node *list);
 
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bglinda <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/02 17:01:21 by bglinda           #+#    #+#             */
+/*   Updated: 2019/12/02 17:01:25 by bglinda          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		ft_write(void *s, int size, t_flags *flags)
@@ -22,6 +34,21 @@ int		ft_write(void *s, int size, t_flags *flags)
     flags->total_bytes += size;
     return (size);
 }
+
+int		ft_write_until_percentage(char **format, t_flags *flags)
+{
+    int	next;
+
+    if (ft_strchr(*format, '%'))
+        next = (int)(ft_strchr(*format, '%') - *format);
+    else
+        next = (int)ft_strlen(*format);
+    //  next = ft_handle_colors(format, next, flags, next);
+    ft_write(*format, next, flags);
+    *format += next;
+    return (next);
+}
+
 
 int type_f(va_list args, t_flags *flags)
 {
@@ -164,7 +191,17 @@ int	ft_pad(t_flags *flags, int size)
 }
 
 t_types	g_types[ARGS_COUNT] = {
-{'f', type_f}
+        {'d', print_int},
+        {'f', type_f},
+        {'s', print_str},
+        {'c', print_symb},
+        {'i', print_i},
+        {'o', print_o},
+        {'u',print_u},
+        {'x',print_x},
+        {'X',print_X},
+        {'%',print_procent}
+
 };
 
 int	ft_call_type(char **str, va_list args, t_flags *flags)
@@ -236,6 +273,8 @@ int ft_printf(char *format, ...)
             str++;
             bytes += ft_handle(&str, args, &flags);
         }
+        else
+            bytes += ft_write_until_percentage(&str, &flags);
     }
     va_end(args);
     if (flags.bytes > 0)
@@ -248,7 +287,9 @@ int ft_printf(char *format, ...)
 
 int main()
 {
-    ft_printf("%20.89f",2234.4435);
+    printf("%d\n",34);
+    ft_printf("%d\n",34);
+
     return (0);
 }
 
