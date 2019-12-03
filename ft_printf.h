@@ -68,18 +68,24 @@ typedef struct s_node
 }   t_node;
 
 
-//prototypes
+//prototypes!!!!!!!!
 
+//float
 double	part_int_ten(double n, int *size);
 void        int_part(double *n, char **str, double mod, int *i);
 void        float_part(double n, char **str, int *i, int rigor);
 int     float_to_str(double n, char **s, int rigor);
 
+//write
+int		ft_write(void *s, int size, t_flags *flags);
+int	ft_pad(t_flags *flags, int size);
+
+
 
 
 //functions scywalkers
 
-int	print_int(va_list ap, t_node *list);
+int	print_int(va_list ap, t_flags *flags);
 int	print_str(va_list ap, t_node *list);
 int	print_symb(char *hu, va_list ap, t_node *list);
 int	print_i(va_list ap, t_node *list);
@@ -88,6 +94,8 @@ int	print_u(char *hu, va_list ap, t_node *list);
 int	print_x(char *hu, va_list ap, t_node *list);
 int	print_procent(char *hu, t_node *list);
 int	print_X(char *hu, va_list ap, t_node *list);
+
+
 
 
 #endif

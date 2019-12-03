@@ -17,16 +17,6 @@ int		ft_write(void *s, int size, t_flags *flags)
     int		i;
     char	*str;
 
-    if (flags->bytes + size > BUFF_SIZE)
-    {
-        write(STDOUT, flags->buffer, (size_t)flags->bytes);
-        flags->bytes = 0;
-        if (size > BUFF_SIZE)
-        {
-            write(STDOUT, s, (size_t)size);
-            return (size);
-        }
-    }
     i = 0;
     str = s;
     while (i < size)
@@ -43,14 +33,13 @@ int		ft_write_until_percentage(char **format, t_flags *flags)
         next = (int)(ft_strchr(*format, '%') - *format);
     else
         next = (int)ft_strlen(*format);
-    //  next = ft_handle_colors(format, next, flags, next);
     ft_write(*format, next, flags);
     *format += next;
     return (next);
 }
 
 
-int type_f(va_list args, t_flags *flags)
+int print_f(va_list args, t_flags *flags)
 {
     char *nb;
     int size;
@@ -192,7 +181,7 @@ int	ft_pad(t_flags *flags, int size)
 
 t_types	g_types[ARGS_COUNT] = {
         {'d', print_int},
-        {'f', type_f},
+        {'f', print_f},
         {'s', print_str},
         {'c', print_symb},
         {'i', print_i},
@@ -287,8 +276,8 @@ int ft_printf(char *format, ...)
 
 int main()
 {
-    printf("%d\n",34);
-    ft_printf("%d\n",34);
+    printf("%+30d\n",34);
+    ft_printf("%+30d",34);
 
     return (0);
 }
