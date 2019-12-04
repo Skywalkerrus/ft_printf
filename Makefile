@@ -26,7 +26,7 @@ DIR_O = obj
 
 HEADER = ft_printf.h
 
-SOURCES = main.c float.c
+SOURCES = float.c parser.c functions.c
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
