@@ -1,10 +1,7 @@
 #include "../includes/ft_printf.h"
 
 
-int		ft_write_char(char c, t_flags *flags)
-{
-    return (ft_write(&c, 1, flags));
-}
+
 
 void	ft_putnbr_base_intmax_t_u(uintmax_t nbr, char *str,
                                   uintmax_t str_length, t_flags *flags)
@@ -88,10 +85,13 @@ int	print_d(va_list ap, t_flags *flags)
     if (flags->precision != 0)
         flags->zero = 0;
     nb = ft_get_nb(ap, *flags);
-    ft_get_number_size_u((uintmax_t)nb,10,&size);
+    ft_get_number_size_u((uintmax_t)(nb < 0 ? -nb : nb),10,&size);
     precision = flags->precision - size;
     size = (flags->precision > size) ? flags->precision : size;
+    size = (flags->precision == -1 && nb == 0) ? 0 : size;
     size += (nb >= 0 && (flags->plus || flags->space));
+    if (nb < 0)
+        size += 1;
     size = ft_display_d(flags,size,precision,nb);
     size = (flags->minus) ? ft_pad(flags,size):size;
     return (size);

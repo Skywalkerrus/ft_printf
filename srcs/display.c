@@ -1,6 +1,10 @@
 #include "../includes/ft_printf.h"
 
 
+int		ft_write_char(char c, t_flags *flags)
+{
+    return (ft_write(&c, 1, flags));
+}
 
 int		ft_write_until_percentage(char **format, t_flags *flags)
 {
