@@ -17,7 +17,7 @@
 #include <stdlib.h>
 # include <stdarg.h>
 # include <stdio.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 // scywalkers
 typedef unsigned long long int size_b;
@@ -75,27 +75,58 @@ double	part_int_ten(double n, int *size);
 void        int_part(double *n, char **str, double mod, int *i);
 void        float_part(double n, char **str, int *i, int rigor);
 int     float_to_str(double n, char **s, int rigor);
+int     print_f(va_list args, t_flags *flags);
+
 
 //write
 int		ft_write(void *s, int size, t_flags *flags);
-int	ft_pad(t_flags *flags, int size);
+int     ft_pad(t_flags *flags, int size);
+int		ft_write_char(char c, t_flags *flags);
+int		ft_write_until_percentage(char **format, t_flags *flags);
 
+
+//parser
+void	ft_init_flags(t_flags *flags);
+int		ft_handle_flags(char **str, t_flags *flags);
+int		ft_handle_width(char **str, t_flags *flags, va_list args);
+int		ft_handle_precision(char **str, t_flags *flags, va_list args);
+void	ft_edit_length_type(char **str, t_flags *flags, int flag_type, int size);
+int		ft_handle_length(char **str, t_flags *flags);
+int	ft_call_type(char **str, va_list args, t_flags *flags);
+
+int	ft_handle(char **str, va_list args, t_flags *flags);
+int ft_printf(char *format, ...);
 
 
 
 //functions scywalkers
 
-int	print_int(va_list ap, t_flags *flags);
+int	print_d(va_list ap, t_flags *flags);
 int	print_str(va_list ap, t_node *list);
-int	print_symb(char *hu, va_list ap, t_node *list);
+int	print_symb(va_list ap, t_node *list);
 int	print_i(va_list ap, t_node *list);
-int	print_o(char *hu, va_list ap, t_node *list);
-int	print_u(char *hu, va_list ap, t_node *list);
-int	print_x(char *hu, va_list ap, t_node *list);
-int	print_procent(char *hu, t_node *list);
-int	print_X(char *hu, va_list ap, t_node *list);
+int	print_o(va_list ap, t_node *list);
+int	print_u(va_list ap, t_node *list);
+int	print_x(va_list ap, t_node *list);
+int	print_procent(t_node *list);
+int	print_X(va_list ap, t_node *list);
 
-
+//
+//void	print_ld(char *hu, va_list ap, t_node *list);
+//void	print_long_l(char *hu, va_list ap, t_node *list);
+//void	print_llu(char *hu, va_list ap, t_node *list);
+//void	Func(unsigned int n, t_node *list);
+//void	print_lu(char *hu, va_list ap, t_node *list);
+//void	print_hu(char *hu, va_list ap, t_node *list);
+//void	print_hi(char *hu, va_list ap, t_node *list);
+//void	print_hd(char *hu, va_list ap, t_node *list);
+//void	print_lli(char *hu, va_list ap, t_node *list);
+//void	Func2_next(long long n, t_node *list);
+//void	Func2(long long n, t_node *list);
+//void	Func3_next(long long int n, t_node *list);
+//void    Func3(long long int n, t_node *list);
+//void	one_proc(char *hu, t_node *list);
+//void	cast_func(char *hu, va_list ap, func *mass, t_node *list);
 
 
 #endif

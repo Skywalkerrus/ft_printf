@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <limits.h>
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 #include <stdio.h>
 #include "stdlib.h"
 #include <stdarg.h>
@@ -30,75 +30,6 @@
 //    return (0);
 //}
 
-int		ft_write_char(char c, t_flags *flags)
-{
-    return (ft_write(&c, 1, flags));
-}
-
-void	ft_putnbr_base_intmax_t_u(uintmax_t nbr, char *str,
-                                  uintmax_t str_length, t_flags *flags)
-{
-    if (nbr >= str_length)
-        ft_putnbr_base_intmax_t_u(nbr / str_length, str, str_length, flags);
-    ft_write_char(str[nbr % str_length], flags);
-}
-
-void		ft_display_sign(intmax_t nb, t_flags *flags)
-{
-    if (nb < 0)
-        ft_write("-", 1, flags);
-    if (flags->plus && nb >= 0)
-        ft_write("+", 1, flags);
-    else if (flags->space && nb >= 0)
-        ft_write(" ", 1, flags);
-}
-
-int			ft_display_d(t_flags *flags, int size, int precision, intmax_t nb) {
-    int width_size;
-    int width;
-
-    width = 0;
-    width_size = 0;
-    if (!flags->minus) {
-        if (flags->width && flags->zero)
-            ft_display_sign(nb, flags);
-        width_size = ft_pad(flags, size) - size;
-    }
-    if ((flags->width && (flags->minus || !flags->zero)) || !flags->width)
-        ft_display_sign(nb, flags);
-    while (width++ < precision)
-        ft_write("0", 1, flags);
-    if (size > 0)
-        ft_putnbr_base_intmax_t_u((uintmax_t) (nb < 0 ? -nb : nb), "0123456789",
-                                  10, flags);
-    return (size + width_size);
-}
-
-void	ft_get_number_size_u(uintmax_t nbr, uintmax_t str_length, int *size)
-{
-    *size += 1;
-    while (nbr >= str_length)
-    {
-        nbr /= str_length;
-        *size += 1;
-    }
-}
-int	print_int(va_list ap, t_flags *flags)
-{
-    intmax_t		nb;
-    int     precision;
-    int     size;
-
-    size = 0;
-    nb = va_arg(ap, int);
-    ft_get_number_size_u((uintmax_t)nb,10,&size);
-    precision = flags->precision - size;
-    size = (flags->precision > size) ? flags->precision : size;
-    size += (nb >= 0 && (flags->plus || flags->space));
-    size = ft_display_d(flags,size,precision,nb);
-    size = (flags->minus) ? ft_pad(flags,size):size;
-    return (size);
-}
 
 int	print_str( va_list ap, t_node *list)
 {
@@ -120,78 +51,78 @@ int	print_str( va_list ap, t_node *list)
     return (0);
 }
 
-int	print_symb(char *hu, va_list ap, t_node *list)
+int	print_symb(va_list ap, t_node *list)
 {
 	char	cval;
 
-	if (*hu == 'c')
-	{
+//	if (*hu == 'c')
+//	{
 		cval = va_arg(ap, int);
 		ft_putchar(cval);
 		list->len++; 
-	}
+//	}
     return (0);
 }
 
-void	print_ld(char *hu, va_list ap, t_node *list)
-{
-	long long int lval;
-
-	if (*hu == 'l')
-	{
-		hu++;
-		if (*hu == 'd')
-		{
-			lval = va_arg(ap, unsigned long long int);
-			/*if (lval > 0)
-				list->len--;
-			else
-				list->len++;*/
-			ft_putnbr(lval);
-			list->len = list->len + ft_strlen(ft_itoa(lval));
-		}
-	}
-}
-
-void	print_long_l(char *hu, va_list ap, t_node *list)
-{
-	unsigned long long int lval;
-
-	if (*hu == 'l')
-	{
-		hu++;
-		if (*hu == 'l')
-		{
-			hu++;
-			if (*hu == 'd')
-			{
-				lval = va_arg(ap, unsigned long long int);
-				ft_putnbr_4(lval);
-				list->len = list->len + ft_strlen(ft_itoa(lval));
-			}
-		}
-	}
-}
-
-void	print_llu(char *hu, va_list ap, t_node *list)
-{
-	unsigned long long int llu;
-
-	if (*hu == 'l')
-	{
-		hu++;
-		if (*hu == 'l')
-		{
-			hu++;
-			if (*hu == 'u')
-			{
-				llu = va_arg(ap, unsigned long long int);
-				ft_putnbr_2(llu);
-				list->len = list->len + ft_strlen(ft_itoa(llu));
-			}
-		}
-	}
-}
+//void	print_ld(char *hu, va_list ap, t_node *list)
+//{
+//	long long int lval;
+//
+//	if (*hu == 'l')
+//	{
+//		hu++;
+//		if (*hu == 'd')
+//		{
+//			lval = va_arg(ap, unsigned long long int);
+//			/*if (lval > 0)
+//				list->len--;
+//			else
+//				list->len++;*/
+//			ft_putnbr(lval);
+//			list->len = list->len + ft_strlen(ft_itoa(lval));
+//		}
+//	}
+//}
+//
+//void	print_long_l(char *hu, va_list ap, t_node *list)
+//{
+//	unsigned long long int lval;
+//
+//	if (*hu == 'l')
+//	{
+//		hu++;
+//		if (*hu == 'l')
+//		{
+//			hu++;
+//			if (*hu == 'd')
+//			{
+//				lval = va_arg(ap, unsigned long long int);
+//				ft_putnbr_4(lval);
+//				list->len = list->len + ft_strlen(ft_itoa(lval));
+//			}
+//		}
+//	}
+//}
+//
+//void	print_llu(char *hu, va_list ap, t_node *list)
+//{
+//	unsigned long long int llu;
+//
+//	if (*hu == 'l')
+//	{
+//		hu++;
+//		if (*hu == 'l')
+//		{
+//			hu++;
+//			if (*hu == 'u')
+//			{
+//				llu = va_arg(ap, unsigned long long int);
+//				ft_putnbr_2(llu);
+//				list->len = list->len + ft_strlen(ft_itoa(llu));
+//			}
+//		}
+//	}
+//}
 
 int	print_i( va_list ap, t_node *list)
 {
@@ -221,12 +152,12 @@ void	Func(unsigned int n, t_node *list)
 	return;
 }
 
-int	print_o(char *hu, va_list ap, t_node *list)
+int	print_o(va_list ap, t_node *list)
 {
 	int oo;
 
-	if (*hu == 'o')
-	{
+//	if (*hu == 'o')
+//	{
 		oo = va_arg(ap, unsigned int);
 		if (oo == 0)
 		{
@@ -234,16 +165,16 @@ int	print_o(char *hu, va_list ap, t_node *list)
 			list->len++;
 		}
 		Func(oo, list);
-	}
+//	}
     return (0);
 }
 
-int	print_u(char *hu, va_list ap, t_node *list)
+int	print_u(va_list ap, t_node *list)
 {
 	long long int	uu;
 
-	if (*hu == 'u')
-	{
+//	if (*hu == 'u')
+//	{
 		uu = va_arg(ap, long long int);
 		if (uu < 0)
 		{
@@ -259,102 +190,102 @@ int	print_u(char *hu, va_list ap, t_node *list)
 		}
 		ft_putnbr(uu);
 		list->len = list->len + ft_strlen(ft_itoa(uu));
-	}
+//	}
     return (0);
 }
 
-int	print_procent(char *hu, t_node *list)
+int	print_procent(t_node *list)
 {
-	if (*hu == '%')
-	{
+//	if (*hu == '%')
+//	{
 		list->len++;
 		ft_putchar('%');
-	}
+//	}
     return (0);
 }
 
-void	print_lu(char *hu, va_list ap, t_node *list)
-{
-	unsigned long long lu;
-	if (*hu == 'l')
-	{
-		hu++;
-		if (*hu == 'u')
-		{
-			lu = va_arg(ap, unsigned long long);
-			ft_putnbr_2(lu);
-			list->len = list->len + ft_strlen(ft_itoa_2(lu));
-		}
-	}
-}
+//void	print_lu(char *hu, va_list ap, t_node *list)
+//{
+//	unsigned long long lu;
+//	if (*hu == 'l')
+//	{
+//		hu++;
+//		if (*hu == 'u')
+//		{
+//			lu = va_arg(ap, unsigned long long);
+//			ft_putnbr_2(lu);
+//			list->len = list->len + ft_strlen(ft_itoa_2(lu));
+//		}
+//	}
+//}
 
-void	print_hu(char *hu, va_list ap, t_node *list)
-{
-	int val;
-	
-	if (*hu == 'h')
-	{
-		hu++;
-		if (*hu == 'u')
-		{
-			val = va_arg(ap, int);
-			ft_putnbr(val);
-			list->len = list->len + ft_strlen(ft_itoa(val));
-		}
-	}
-}
+//void	print_hu(char *hu, va_list ap, t_node *list)
+//{
+//	int val;
+//
+//	if (*hu == 'h')
+//	{
+//		hu++;
+//		if (*hu == 'u')
+//		{
+//			val = va_arg(ap, int);
+//			ft_putnbr(val);
+//			list->len = list->len + ft_strlen(ft_itoa(val));
+//		}
+//	}
+//}
 
-void	print_hi(char *hu, va_list ap, t_node *list)
-{
-	signed short int val;
+//void	print_hi(char *hu, va_list ap, t_node *list)
+//{
+//	signed short int val;
+//
+//	if (*hu == 'h')
+//	{
+//		hu++;
+//		if (*hu == 'i')
+//		{
+//			val = va_arg(ap, int);
+//			ft_putnbr(val);
+//			list->len = list->len + ft_strlen(ft_itoa(val));
+//		}
+//	}
+//}
 
-	if (*hu == 'h')
-	{
-		hu++;
-		if (*hu == 'i')
-		{
-			val = va_arg(ap, int);
-			ft_putnbr(val);
-			list->len = list->len + ft_strlen(ft_itoa(val));
-		}
-	}
-}
+//void	print_hd(char *hu, va_list ap, t_node *list)
+//{
+//	short int hd;
+//
+//	if (*hu == 'h')
+//	{
+//		hu++;
+//		if (*hu == 'd')
+//		{
+//			hd = va_arg(ap, int);
+//			ft_putnbr(hd);
+//			list->len = list->len + ft_strlen(ft_itoa(hd));
+//		}
+//	}
+//}
 
-void	print_hd(char *hu, va_list ap, t_node *list)
-{
-	short int hd;
-
-	if (*hu == 'h')
-	{
-		hu++;
-		if (*hu == 'd')
-		{
-			hd = va_arg(ap, int);
-			ft_putnbr(hd);
-			list->len = list->len + ft_strlen(ft_itoa(hd));
-		}
-	}
-}
-
-void	print_lli(char *hu, va_list ap, t_node *list)
-{
-	signed long long int lli;
-
-	if (*hu == 'l')
-	{
-		hu++;
-		if (*hu == 'l')
-		{
-			hu++;
-			if (*hu == 'i')
-			{
-				lli = va_arg(ap, signed long long int);
-				ft_putnbr(lli);
-				list->len = list->len + ft_strlen(ft_itoa(lli));
-			}
-		}
-	}
-}
+//void	print_lli(char *hu, va_list ap, t_node *list)
+//{
+//	signed long long int lli;
+//
+//	if (*hu == 'l')
+//	{
+//		hu++;
+//		if (*hu == 'l')
+//		{
+//			hu++;
+//			if (*hu == 'i')
+//			{
+//				lli = va_arg(ap, signed long long int);
+//				ft_putnbr(lli);
+//				list->len = list->len + ft_strlen(ft_itoa(lli));
+//			}
+//		}
+//	}
+//}
 
 void	Func2_next(long long n, t_node *list)
 {
@@ -432,14 +363,14 @@ int	print_zero(t_node *list)
 	return(0);
 }
 
-int	print_x(char *hu, va_list ap, t_node *list)
+int	print_x(va_list ap, t_node *list)
 {
 	long long int		dec;
 	char	*str;
 
 	dec = 0;
-	if (*hu == 'x')
-	{
+//	if (*hu == 'x')
+//	{
 		dec = va_arg(ap, int);
 		str = ft_itoa(dec);
 		if (str[0] == '-')
@@ -452,19 +383,19 @@ int	print_x(char *hu, va_list ap, t_node *list)
 			print_zero(list);
 		Func2(dec, list);
 		free(str);
-	}
+//	}
     return(0);
 
 }
 
-int	print_X(char *hu, va_list ap, t_node *list)
+int	print_X(va_list ap, t_node *list)
 {
 	long long int dec;
 	char *str;
 
 	dec = 0;
-	if (*hu == 'X')
-	{
+//	if (*hu == 'X')
+//	{
 		dec = va_arg(ap, int);
 		str = ft_itoa(dec);
 		if (str[0] == '-')
@@ -477,7 +408,7 @@ int	print_X(char *hu, va_list ap, t_node *list)
 			print_zero(list);
 		Func3(dec, list);
 		free(str);
-	}
+//	}
     return(0);
 
 }
@@ -501,52 +432,52 @@ void	one_proc(char *hu, t_node *list)
 		list->len = 0;
 }
 
-void	cast_func(char *hu, va_list ap, func *mass, t_node *list)
-{
-	mass[1](hu, ap, list);
-	mass[2](hu, ap, list);
-	mass[3](hu, ap, list);
-	mass[5](hu, ap, list);
-	mass[6](hu, ap, list);
-	mass[7](hu, ap, list);
-	mass[8](hu, ap, list);
-	mass[9](hu, ap, list);
-	mass[10](hu, ap, list);
-	mass[11](hu, list);
-	mass[12](hu, ap, list);
-	mass[13](hu, ap, list);
-	mass[14](hu, ap, list);
-	mass[15](hu, ap, list);
-	mass[16](hu, ap, list);
-	mass[17](hu, ap, list);
-	mass[18](hu, ap, list);
-	//mass[19](hu, ap);
-	mass[20](hu, list);
-}
-
-void	fundament(func *mass)
-{
-	mass[1] = print_int;
-	mass[2] = print_str;
-	mass[3] = print_symb;
-	//mass[4] = cast_func;
-	//mass[5] = print_ld;
-	//mass[6] = print_long_l;
-	mass[7] = print_i;
-	//mass[8] = print_llu;
-	mass[9] = print_o;
-	mass[10] = print_u;
-	mass[11] = print_procent;
-	//mass[12] = print_lu;
-	//mass[13] = print_hu;
-	//mass[14] = print_hi;
-	//mass[15] = print_hd;
-	//mass[16] = print_lli;
-	mass[17] = print_x;
-	mass[18] = print_X;
-	//mass[19] = print_float;
-	//mass[20] = one_proc;
-}
+//void	cast_func(char *hu, va_list ap, func *mass, t_node *list)
+//{
+//	mass[1](hu, ap, list);
+//	mass[2](hu, ap, list);
+//	mass[3](hu, ap, list);
+//	mass[5](hu, ap, list);
+//	mass[6](hu, ap, list);
+//	mass[7](hu, ap, list);
+//	mass[8](hu, ap, list);
+//	mass[9](hu, ap, list);
+//	mass[10](hu, ap, list);
+//	mass[11](hu, list);
+//	mass[12](hu, ap, list);
+//	mass[13](hu, ap, list);
+//	mass[14](hu, ap, list);
+//	mass[15](hu, ap, list);
+//	mass[16](hu, ap, list);
+//	mass[17](hu, ap, list);
+//	mass[18](hu, ap, list);
+//	//mass[19](hu, ap);
+//	mass[20](hu, list);
+//}
+//
+//void	fundament(func *mass)
+//{
+//	mass[1] = print_d;
+//	mass[2] = print_str;
+//	mass[3] = print_symb;
+//	//mass[4] = cast_func;
+//	//mass[5] = print_ld;
+//	//mass[6] = print_long_l;
+//	mass[7] = print_i;
+//	//mass[8] = print_llu;
+//	mass[9] = print_o;
+//	mass[10] = print_u;
+//	mass[11] = print_procent;
+//	//mass[12] = print_lu;
+//	//mass[13] = print_hu;
+//	//mass[14] = print_hi;
+//	//mass[15] = print_hd;
+//	//mass[16] = print_lli;
+//	mass[17] = print_x;
+//	mass[18] = print_X;
+//	//mass[19] = print_float;
+//	//mass[20] = one_proc;
+//}
 
 //int			ft_printf(char *hu, ...)
 //{

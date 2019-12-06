@@ -10,42 +10,47 @@
 #                                                                              #
 # **************************************************************************** #
 
-C = clang
 
 NAME = libftprintf.a
 
-FLAGS = -Wall -Wextra -Werror -02
+FLAGS = -Wall -Wextra -Werror
 
-LIBFT = libft
+DIR_S = ./srcs/
+SOURCES = float.c number.c parser.c display.c functions.c
+SRCS = $(addprefix $(DIR_S), $(SOURCES))
 
-LIBFT2 = obj/libft
+DIR_L = ./libft/
+LIBFT_S_F = *.c
+LIBFT_S= $(addprefix $(DIR_L), $(LIBFT_S_F))
+LIBFT_O = $(addprefix $(DIR_L), $(LIBFT_S_F:.c:=.o))
 
-DIR_S = srcs
-
-DIR_O = obj
-
+DIR_H = ./includes/
 HEADER = ft_printf.h
+HEAD = $(addprefix $(DIR_H), $(HEADER))
 
-SOURCES = main.c float.c
-SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
+DIR_O = ./obj/
+OBJS = $(addprefix $(DIR_O), $(SOURCES:.c=.o))
 
-OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
+INCLUDES = -I./libft -I./includes
+CC = gcc $(FLAGS)
+
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-		@make -C $(LIBFT)
-		@cp libft/libft.a ./$(NAME)
-		@ar rc $(NAME) $(OBJS)
-		@ranlib $(NAME)
+$(NAME): $(OBJS) $(LIBFT_O) $(HEAD)
+	@make -C libft
+	@cp libft/libft.a ./$(NAME)
+	@ar rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
+	@echo "OK"
 
-$(DIR_O)/%.o: $(DIR_S)/%.c $(HEADER)/ft_printf.h
-		@mkdir -p obj
-		@@$(CC) $(FLAGS) -I $(HEADER) -o $@ -c $<
+$(DIR_O)%.o: $(DIR_S)%.c
+	@mkdir -p $(DIR_O)
+	@$(CC) $(INCLUDES) -c $< -o $@
 
-test:
-		@make all misc/main.c
-
+$(DIR_L)%.o: $(DIR_L)%.c
+	@mkdir $(DIR_L)
+	@$(CC) $(INCLUDES) -c $< -o $@
 
 norme:
 		norminette ./libft/
@@ -55,15 +60,11 @@ norme:
 		norminette ./$(DIR_S)/
 
 clean:
-		@rm -f $(OBJS)
-		@make clean -C $(LIBFT2)
-		@make clean -C $(LIBFT)
+	@rm -rf $(OBJS)
 
 fclean: clean
-		@rm -f $(NAME)
-		@make fclean -C $(LIBFT)
-		@make fclean -C $(LIBFT2)
+	@rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: fclean re norme all clean
+.PHONY: fclean re all clean
