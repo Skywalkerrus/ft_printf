@@ -31,25 +31,25 @@
 //}
 
 
-int	print_str( va_list ap, t_node *list)
-{
-	char	*str;
-
-//	if (*hu == 's')
-//	{
-		str = va_arg(ap, char*);
-		if (str == NULL)
-		{
-			ft_putstr("(null)");
-			list->len = list->len + 6;
-		} else 
-		{
-			ft_putstr(str);
-			list->len = (list->len) + ft_strlen(str);
-		}
-	//}
-    return (0);
-}
+//int	print_str( va_list ap, t_node *list)
+//{
+//	char	*str;
+//
+////	if (*hu == 's')
+////	{
+//		str = va_arg(ap, char*);
+//		if (str == NULL)
+//		{
+//			ft_putstr("(null)");
+//			list->len = list->len + 6;
+//		} else
+//		{
+//			ft_putstr(str);
+//			list->len = (list->len) + ft_strlen(str);
+//		}
+//	//}
+//    return (0);
+//}
 
 int	print_symb(va_list ap, t_node *list)
 {

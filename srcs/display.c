@@ -24,8 +24,6 @@ int	ft_pad(t_flags *flags, int size)
 {
     int width;
 
-    if (flags->width <= 0)
-        return (size);
     width = 0;
     while (width++ < flags->width - size)
         ft_write((flags->zero && !flags->minus) ? "0" : " ", 1, flags);

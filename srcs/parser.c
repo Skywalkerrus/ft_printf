@@ -139,10 +139,9 @@ int	ft_call_type(char **str, va_list args, t_flags *flags)
 {
     int arg;
     int size;
-    t_node *list;
-
-    list  = malloc(sizeof(t_node));
-
+//    t_node *list;
+//
+//    list = (t_node *)malloc(sizeof(t_node));
     arg = 0;
     while (arg < ARGS_COUNT)
     {
@@ -161,6 +160,7 @@ int	ft_call_type(char **str, va_list args, t_flags *flags)
     if (flags->minus)
         size = ft_pad(flags, size);
     *str += 1;
+//    free(list);
     return (size);
 }
 

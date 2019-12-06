@@ -16,7 +16,7 @@ NAME = libftprintf.a
 FLAGS = -Wall -Wextra -Werror
 
 DIR_S = ./srcs/
-SOURCES = float.c number.c parser.c display.c functions.c
+SOURCES = float.c number.c parser.c display.c functions.c string.c
 SRCS = $(addprefix $(DIR_S), $(SOURCES))
 
 DIR_L = ./libft/
@@ -60,10 +60,12 @@ norme:
 		norminette ./$(DIR_S)/
 
 clean:
-	@rm -rf $(OBJS)
+	@rm -f $(OBJS)
+	@make clean -C $(DIR_L)
 
 fclean: clean
 	@rm -f $(NAME)
+	@make fclean -C $(DIR_L)
 
 re: fclean all
 

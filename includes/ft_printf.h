@@ -102,7 +102,7 @@ int ft_printf(char *format, ...);
 //functions scywalkers
 
 int	print_d(va_list ap, t_flags *flags);
-int	print_str(va_list ap, t_node *list);
+int	print_str(va_list ap, t_flags *flags);
 int	print_symb(va_list ap, t_node *list);
 int	print_i(va_list ap, t_node *list);
 int	print_o(va_list ap, t_node *list);
