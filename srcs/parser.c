@@ -10,50 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-int		ft_write(void *s, int size, t_flags *flags)
-{
-    int		i;
-    char	*str;
-
-    i = 0;
-    str = s;
-    while (i < size)
-        flags->buffer[flags->bytes++] = str[i++];
-    flags->total_bytes += size;
-    return (size);
-}
-
-int		ft_write_until_percentage(char **format, t_flags *flags)
-{
-    int	next;
-
-    if (ft_strchr(*format, '%'))
-        next = (int)(ft_strchr(*format, '%') - *format);
-    else
-        next = (int)ft_strlen(*format);
-    ft_write(*format, next, flags);
-    *format += next;
-    return (next);
-}
-
-
-int print_f(va_list args, t_flags *flags)
-{
-    char *nb;
-    int size;
-    double n;
-
-
-    n = va_arg(args, double);
-    if(flags->precision <= 0)
-        flags->precision = 7;
-    size = float_to_str(n,&nb,flags->precision);
-    ft_write(nb,size,flags);
-    free(nb);
-    return (size);
-}
+#include "../includes/ft_printf.h"
 
 
 void	ft_init_flags(t_flags *flags)
@@ -87,8 +44,6 @@ int		ft_handle_flags(char **str, t_flags *flags)
     return (1);
 }
 
-
-
 int		ft_handle_width(char **str, t_flags *flags, va_list args)
 {
     int width;
@@ -111,7 +66,6 @@ int		ft_handle_width(char **str, t_flags *flags, va_list args)
     }
     return (0);
 }
-
 
 int		ft_handle_precision(char **str, t_flags *flags, va_list args)
 {
@@ -167,20 +121,9 @@ int		ft_handle_length(char **str, t_flags *flags)
     return (1);
 }
 
-int	ft_pad(t_flags *flags, int size)
-{
-    int width;
-
-    if (flags->width <= 0)
-        return (size);
-    width = 0;
-    while (width++ < flags->width - size)
-        ft_write((flags->zero && !flags->minus) ? "0" : " ", 1, flags);
-    return (size + width - 1);
-}
 
 t_types	g_types[ARGS_COUNT] = {
-        {'d', print_int},
+        {'d', print_d},
         {'f', print_f},
         {'s', print_str},
         {'c', print_symb},
@@ -190,13 +133,15 @@ t_types	g_types[ARGS_COUNT] = {
         {'x',print_x},
         {'X',print_X},
         {'%',print_procent}
-
 };
 
 int	ft_call_type(char **str, va_list args, t_flags *flags)
 {
     int arg;
     int size;
+    t_node *list;
+
+    list  = malloc(sizeof(t_node));
 
     arg = 0;
     while (arg < ARGS_COUNT)
@@ -272,13 +217,53 @@ int ft_printf(char *format, ...)
 }
 
 
+//int			ft_printf(char *hu, ...)
+//{
+//    func *mass;
+//    va_list ap;
+//    t_node  *list;
+//
+//    list = (t_node *)malloc(sizeof(t_node));
+//    list->len = 0;
+//    mass = (void *) malloc(sizeof(void) * 250);
+//    va_start(ap, hu);
+//    mass[0] = fundament;
+//    mass[0](mass);
+//    while(*hu)
+//    {
+//        if (*hu != '%')
+//        {
+//            ft_putchar(*hu);
+//            list->len++;
+//        }
+//        else if (*hu == '%')
+//        {
+//            hu++;
+//            mass[4](hu, ap, mass, list);
+//            if (*hu == 'l' || *hu == 'h')
+//            {
+//                hu++;
+//                if (*hu == 'u' || *hu == 'i' || *hu == 'x')
+//                    hu--;
+//                if (*hu != 'd')
+//                    hu++;
+//            }
+//        }
+//        hu++;
+//    }
+//    free(mass);
+//    va_end(ap);
+//    return(list->len);
+//}
 
 
-int main()
-{
-    printf("%+30d\n",34);
-    ft_printf("%+30d",34);
-
-    return (0);
-}
+//int main()
+//{
+//    //int bytes;
+//
+//    printf("%0 d\n", -42);
+//    ft_printf("%0 d\n", -42);
+//
+//    return (0);
+//}
 

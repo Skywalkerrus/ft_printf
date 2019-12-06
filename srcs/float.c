@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-
+#include "../includes/ft_printf.h"
 
 double	part_int_ten(double n, int *size)
 {
@@ -29,13 +27,11 @@ double	part_int_ten(double n, int *size)
 
 void        int_part(double *n, char **str, double mod, int *i)
 {
-    //int     rank;
     char *s;
 
     s = *str;
     while ((int)*n != 0)
     {
-       // rank = (int)(*n / mod);
         s[(*i)++] = (char)((*n / mod) + '0');
         *n -= (int)(*n / mod) * mod;
         mod = mod / 10;
@@ -91,7 +87,21 @@ int     float_to_str(double n, char **s, int rigor)
     return (size);
 }
 
+int print_f(va_list args, t_flags *flags)
+{
+    char *nb;
+    int size;
+    double n;
 
+
+    n = va_arg(args, double);
+    if(flags->precision <= 0)
+        flags->precision = 7;
+    size = float_to_str(n,&nb,flags->precision);
+    ft_write(nb,size,flags);
+    free(nb);
+    return (size);
+}
 
 //
 //int main()
