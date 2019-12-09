@@ -124,10 +124,10 @@ int		ft_handle_length(char **str, t_flags *flags)
 
 t_types	g_types[ARGS_COUNT] = {
         {'d', print_d},
+		{'i', print_d},
         {'f', print_f},
         {'s', print_str},
         {'c', print_symb},
-        {'i', print_i},
         {'o', print_o},
         {'u',print_u},
         {'x',print_x},

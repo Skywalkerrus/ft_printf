@@ -1,7 +1,21 @@
 #include "../includes/ft_printf.h"
 
 
+int			ft_handle_hash_key(uintmax_t nb, t_flags *flags, int *size,
+								  char *hash_key_content)
+{
+	int precision;
 
+	precision = 0;
+	if (nb == 0 && flags->type != 'p')
+		flags->hash_key = 0;
+	if (flags->hash_key && (!flags->width || flags->minus || flags->zero ||
+							(precision = flags->precision > *size)))
+		ft_write(hash_key_content, (int)ft_strlen(hash_key_content), flags);
+	if (flags->hash_key && ((flags->width) && !precision) && flags->type != 'p')
+		*size += (int)ft_strlen(hash_key_content);
+	return (precision);
+}
 
 void	ft_putnbr_base_intmax_t_u(uintmax_t nbr, char *str,
                                   uintmax_t str_length, t_flags *flags)

@@ -22,6 +22,8 @@ int	print_str(va_list ap,t_flags *flags)
             ft_write(str, size, flags);
         ft_pad(flags, size);
     }
+    if (!flags->width || !flags->minus)
+    	ft_write(str,size,flags);
     if (flags->width - size > 0)
         return (size + flags->width -size);
     else

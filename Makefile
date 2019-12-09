@@ -16,7 +16,7 @@ NAME = libftprintf.a
 FLAGS = -Wall -Wextra -Werror
 
 DIR_S = ./srcs/
-SOURCES = float.c number.c parser.c display.c functions.c string.c
+SOURCES = float.c number.c parser.c display.c functions.c string.c base_eight.c base_numbers.c
 SRCS = $(addprefix $(DIR_S), $(SOURCES))
 
 DIR_L = ./libft/

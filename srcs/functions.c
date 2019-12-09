@@ -124,20 +124,20 @@ int	print_symb(va_list ap, t_node *list)
 //	}
 //}
 
-int	print_i( va_list ap, t_node *list)
-{
-	signed int		chislo;
-	char			*hex_to_numb;
-
-//	if (*hu == 'i')
-//	{
-		chislo = va_arg(ap, signed int);
-		hex_to_numb = ft_itoa(chislo);
-		ft_putnbr(ft_atoi(hex_to_numb));
-		list->len = list->len + ft_strlen(hex_to_numb);
-//	}
-    return (0);
-}
+//int	print_i( va_list ap, t_node *list)
+//{
+//	signed int		chislo;
+//	char			*hex_to_numb;
+//
+////	if (*hu == 'i')
+////	{
+//		chislo = va_arg(ap, signed int);
+//		hex_to_numb = ft_itoa(chislo);
+//		ft_putnbr(ft_atoi(hex_to_numb));
+//		list->len = list->len + ft_strlen(hex_to_numb);
+////	}
+//    return (0);
+//}
 
 void	Func(unsigned int n, t_node *list)
 {
@@ -152,47 +152,45 @@ void	Func(unsigned int n, t_node *list)
 	return;
 }
 
-int	print_o(va_list ap, t_node *list)
-{
-	int oo;
-
-//	if (*hu == 'o')
+//int	print_o(va_list ap, t_node *list)
+//{
+//	int oo;
+//
+//
+//	oo = va_arg(ap, unsigned int);
+//	if (oo == 0)
 //	{
-		oo = va_arg(ap, unsigned int);
-		if (oo == 0)
-		{
-			ft_putnbr(0);
-			list->len++;
-		}
-		Func(oo, list);
+//		ft_putnbr(0);
+//		list->len++;
 //	}
-    return (0);
-}
+//	Func(oo, list);
+//    return (0);
+//}
 
-int	print_u(va_list ap, t_node *list)
-{
-	long long int	uu;
-
-//	if (*hu == 'u')
-//	{
-		uu = va_arg(ap, long long int);
-		if (uu < 0)
-		{
-			ft_putstr("4294967295");
-			list->len = list->len + 10;
-			return(0);
-		}
-		if (uu > 4294967295)
-		{
-			ft_putchar('0');
-			list->len++;
-			return(0);
-		}
-		ft_putnbr(uu);
-		list->len = list->len + ft_strlen(ft_itoa(uu));
-//	}
-    return (0);
-}
+//int	print_u(va_list ap, t_node *list)
+//{
+//	long long int	uu;
+//
+////	if (*hu == 'u')
+////	{
+//		uu = va_arg(ap, long long int);
+//		if (uu < 0)
+//		{
+//			ft_putstr("4294967295");
+//			list->len = list->len + 10;
+//			return(0);
+//		}
+//		if (uu > 4294967295)
+//		{
+//			ft_putchar('0');
+//			list->len++;
+//			return(0);
+//		}
+//		ft_putnbr(uu);
+//		list->len = list->len + ft_strlen(ft_itoa(uu));
+////	}
+//    return (0);
+//}
 
 int	print_procent(t_node *list)
 {
@@ -362,56 +360,56 @@ int	print_zero(t_node *list)
 	list->len++;
 	return(0);
 }
-
-int	print_x(va_list ap, t_node *list)
-{
-	long long int		dec;
-	char	*str;
-
-	dec = 0;
-//	if (*hu == 'x')
-//	{
-		dec = va_arg(ap, int);
-		str = ft_itoa(dec);
-		if (str[0] == '-')
-		{
-			dec = (-1) * dec * 4294967295;
-			list->when_pr = 1;
-		} else
-			list->when_pr = 8;
-		if (dec == 0)
-			print_zero(list);
-		Func2(dec, list);
-		free(str);
-//	}
-    return(0);
-
-}
-
-int	print_X(va_list ap, t_node *list)
-{
-	long long int dec;
-	char *str;
-
-	dec = 0;
-//	if (*hu == 'X')
-//	{
-		dec = va_arg(ap, int);
-		str = ft_itoa(dec);
-		if (str[0] == '-')
-		{
-			dec = (-1) * dec * 4294967295;
-			list->when_pr = 1;
-		} else
-			list->when_pr = 8;
-		if (dec == 0)
-			print_zero(list);
-		Func3(dec, list);
-		free(str);
-//	}
-    return(0);
-
-}
+//
+//int	print_x(va_list ap, t_node *list)
+//{
+//	long long int		dec;
+//	char	*str;
+//
+//	dec = 0;
+////	if (*hu == 'x')
+////	{
+//		dec = va_arg(ap, int);
+//		str = ft_itoa(dec);
+//		if (str[0] == '-')
+//		{
+//			dec = (-1) * dec * 4294967295;
+//			list->when_pr = 1;
+//		} else
+//			list->when_pr = 8;
+//		if (dec == 0)
+//			print_zero(list);
+//		Func2(dec, list);
+//		free(str);
+////	}
+//    return(0);
+//
+//}
+//
+//int	print_X(va_list ap, t_node *list)
+//{
+//	long long int dec;
+//	char *str;
+//
+//	dec = 0;
+////	if (*hu == 'X')
+////	{
+//		dec = va_arg(ap, int);
+//		str = ft_itoa(dec);
+//		if (str[0] == '-')
+//		{
+//			dec = (-1) * dec * 4294967295;
+//			list->when_pr = 1;
+//		} else
+//			list->when_pr = 8;
+//		if (dec == 0)
+//			print_zero(list);
+//		Func3(dec, list);
+//		free(str);
+////	}
+//    return(0);
+//
+//}
 
 //void	print_float(char *hu, va_list ap)
 //{

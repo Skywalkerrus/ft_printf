@@ -1,5 +1,34 @@
 #include "../includes/ft_printf.h"
 
+void		ft_display_padding(t_flags *flags, uintmax_t nb, int *size,
+							   char *base)
+{
+	int			width;
+	int			precision;
+
+	if (flags->precision <= 0 && flags->width <= 0)
+	{
+		if (flags->type == 'p' && *size > 0)
+			*size += 2;
+		return ;
+	}
+	width = 0;
+	precision = flags->precision - *size;
+	*size = (flags->precision > *size) ? flags->precision : *size;
+	while (flags->minus && width++ < precision)
+		ft_write("0", 1, flags);
+	if (flags->minus && flags->precision != -1)
+		ft_putnbr_base_intmax_t_u(nb, base, ft_strlen(base), flags);
+	width = 0;
+	while (width++ < flags->width - (*size + (flags->type == 'p' ? 2 : 0)))
+		ft_write((flags->zero && !flags->minus) ? "0" : " ", 1, flags);
+	width = 0;
+	while (!flags->minus && width++ < precision)
+		ft_write("0", 1, flags);
+	if (*size > 0 && flags->type == 'p')
+		*size += 2;
+}
+
 
 int		ft_write_char(char c, t_flags *flags)
 {
