@@ -93,10 +93,16 @@ int		ft_handle_precision(char **str, t_flags *flags, va_list args);
 void	ft_edit_length_type(char **str, t_flags *flags, int flag_type, int size);
 int		ft_handle_length(char **str, t_flags *flags);
 int	ft_call_type(char **str, va_list args, t_flags *flags);
-
+uintmax_t	ft_get_nb_u(va_list args, t_flags flags);
 int	ft_handle(char **str, va_list args, t_flags *flags);
 int ft_printf(char *format, ...);
-
+void	ft_putnbr_base_intmax_t_u(uintmax_t nbr, char *str,
+								  uintmax_t str_length, t_flags *flags);
+void	ft_get_number_size_u(uintmax_t nbr, uintmax_t str_length, int *size);
+int			ft_handle_hash_key(uintmax_t nb, t_flags *flags, int *size,
+								  char *hash_key_content);
+void		ft_display_padding(t_flags *flags, uintmax_t nb, int *size,
+							   char *base);
 
 
 //functions scywalkers
@@ -104,12 +110,12 @@ int ft_printf(char *format, ...);
 int	print_d(va_list ap, t_flags *flags);
 int	print_str(va_list ap, t_flags *flags);
 int	print_symb(va_list ap, t_node *list);
-int	print_i(va_list ap, t_node *list);
-int	print_o(va_list ap, t_node *list);
-int	print_u(va_list ap, t_node *list);
-int	print_x(va_list ap, t_node *list);
+int	print_i(va_list ap, t_flags *flags);
+int	print_o(va_list ap, t_flags *flags);
+int	print_u(va_list ap, t_flags *flags);
+int	print_x(va_list ap, t_flags *flags);
 int	print_procent(t_node *list);
-int	print_X(va_list ap, t_node *list);
+int	print_X(va_list ap, t_flags *flags);
 
 //
 //void	print_ld(char *hu, va_list ap, t_node *list);
