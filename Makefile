@@ -61,11 +61,13 @@ norme:
 
 clean:
 	@rm -f $(OBJS)
+	@rm -rf $(DIR_O)
 	@make clean -C $(DIR_L)
 
 fclean: clean
 	@rm -f $(NAME)
 	@make fclean -C $(DIR_L)
+
 
 re: fclean all
 
