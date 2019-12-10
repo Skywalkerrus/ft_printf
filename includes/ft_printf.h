@@ -27,7 +27,7 @@ typedef int (*func)();
 //defines
 # define BUFF_SIZE 1024
 # define STDOUT 1
-# define ARGS_COUNT 21
+# define ARGS_COUNT 100
 # define LENGTH_HH 1
 # define LENGTH_H 2
 # define LENGTH_LL 4
@@ -115,6 +115,7 @@ int	print_u(va_list ap, t_flags *flags);
 int	print_x(va_list ap, t_flags *flags);
 int	print_procent(va_list args, t_flags *flags);
 int	print_X(va_list ap, t_flags *flags);
+int print_U(va_list ap, t_flags *flags);
 
 //
 //void	print_ld(char *hu, va_list ap, t_node *list);

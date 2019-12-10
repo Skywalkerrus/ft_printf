@@ -130,6 +130,7 @@ t_types	g_types[ARGS_COUNT] = {
         {'c', print_symb},
         {'o', print_o},
         {'u',print_u},
+        {'U',print_u},
         {'x',print_x},
         {'X',print_X},
         {'%',print_procent}
@@ -212,7 +213,7 @@ int ft_printf(char *format, ...)
     }
     va_end(args);
     if (flags.bytes > 0)
-        ft_putstr(flags.buffer);
+        write(1, flags.buffer, (size_t)flags.bytes);
     return (bytes);
 }
 

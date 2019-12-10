@@ -35,6 +35,12 @@ int print_u(va_list ap, t_flags *flags)
 }
 
 
+int print_U(va_list ap, t_flags *flags)
+{
+    flags->length_type = LENGTH_L;
+    return (print_u(ap, flags));
+}
+
 int print_x(va_list ap, t_flags *flags)
 {
 	return (print_base(ap,flags,"0123456789abcdef","0x"));
