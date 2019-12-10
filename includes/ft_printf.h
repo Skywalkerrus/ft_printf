@@ -109,12 +109,11 @@ void		ft_display_padding(t_flags *flags, uintmax_t nb, int *size,
 
 int	print_d(va_list ap, t_flags *flags);
 int	print_str(va_list ap, t_flags *flags);
-int	print_symb(va_list ap, t_node *list);
-int	print_i(va_list ap, t_flags *flags);
+int	print_symb(va_list args, t_flags *flags);
 int	print_o(va_list ap, t_flags *flags);
 int	print_u(va_list ap, t_flags *flags);
 int	print_x(va_list ap, t_flags *flags);
-int	print_procent(t_node *list);
+int	print_procent(va_list args, t_flags *flags);
 int	print_X(va_list ap, t_flags *flags);
 
 //

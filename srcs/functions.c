@@ -50,19 +50,19 @@
 //	//}
 //    return (0);
 //}
-
-int	print_symb(va_list ap, t_node *list)
-{
-	char	cval;
-
-//	if (*hu == 'c')
-//	{
-		cval = va_arg(ap, int);
-		ft_putchar(cval);
-		list->len++; 
-//	}
-    return (0);
-}
+//
+//int	print_symb(va_list ap, t_node *list)
+//{
+//	char	cval;
+//
+////	if (*hu == 'c')
+////	{
+//		cval = va_arg(ap, int);
+//		ft_putchar(cval);
+//		list->len++;
+////	}
+//    return (0);
+//}
 
 //void	print_ld(char *hu, va_list ap, t_node *list)
 //{
@@ -192,15 +192,15 @@ void	Func(unsigned int n, t_node *list)
 //    return (0);
 //}
 
-int	print_procent(t_node *list)
-{
-//	if (*hu == '%')
-//	{
-		list->len++;
-		ft_putchar('%');
-//	}
-    return (0);
-}
+//int	print_procent(t_node *list)
+//{
+////	if (*hu == '%')
+////	{
+//		list->len++;
+//		ft_putchar('%');
+////	}
+//    return (0);
+//}
 
 //void	print_lu(char *hu, va_list ap, t_node *list)
 //{

@@ -6,10 +6,10 @@ int	print_str(va_list ap,t_flags *flags)
     int     size;
 
     str = va_arg(ap, char*);
-    if (!str)
+    if (!str || str == NULL)
     {
         size = 6;
-        ft_write("(null)",size,flags);
+       // ft_write("(null)",size,flags);
     }
     else
         size = ft_strlen(str);
@@ -23,10 +23,47 @@ int	print_str(va_list ap,t_flags *flags)
         ft_pad(flags, size);
     }
     if (!flags->width || !flags->minus)
-    	ft_write(str,size,flags);
+        ft_write((str) ? str : "(null)", size, flags);
     if (flags->width - size > 0)
         return (size + flags->width -size);
     else
         return (size);
+}
+
+int	print_symb(va_list args, t_flags *flags)
+{
+    int	c;
+    int	width;
+
+    c = va_arg(args, int);
+    width = 0;
+    if (flags->width)
+    {
+        if (flags->minus)
+            ft_write(&c, 1, flags);
+        while (width++ < flags->width - 1)
+            ft_write((flags->zero && !flags->minus) ? "0" : " ", 1, flags);
+    }
+    if (!flags->width || !flags->minus)
+        !c || c == 0 ? ft_write("^@", 2, flags) : ft_write(&c, 1, flags);
+    return ((flags->width) ? width : 1);
+}
+
+int	print_procent(va_list args, t_flags *flags)
+{
+    int		width;
+
+    (void)args;
+    if (flags->width)
+    {
+        if (flags->minus)
+            ft_write("%", 1, flags);
+        width = 0;
+        while (width++ < flags->width - 1)
+            ft_write((flags->zero && !flags->minus) ? "0" : " ", 1, flags);
+    }
+    if (!flags->width || !flags->minus)
+        ft_write("%", 1, flags);
+    return ((flags->width) ? flags->width : 1);
 }
 

@@ -64,6 +64,16 @@ int		ft_write(void *s, int size, t_flags *flags)
     int		i;
     char	*str;
 
+    if (flags->bytes + size > BUFF_SIZE)
+    {
+        write(STDOUT, flags->buffer, (size_t)flags->bytes);
+        flags->bytes = 0;
+        if (size > BUFF_SIZE)
+        {
+            write(STDOUT, s, (size_t)size);
+            return (size);
+        }
+    }
     i = 0;
     str = s;
     while (i < size)
