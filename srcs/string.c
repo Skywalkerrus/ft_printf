@@ -45,7 +45,7 @@ int	print_symb(va_list args, t_flags *flags)
             ft_write((flags->zero && !flags->minus) ? "0" : " ", 1, flags);
     }
     if (!flags->width || !flags->minus)
-        !c || c == 0 ? ft_write("^@", 2, flags) : ft_write(&c, 1, flags);
+        ft_write(&c, 1, flags);
     return ((flags->width) ? width : 1);
 }
 
@@ -65,5 +65,12 @@ int	print_procent(va_list args, t_flags *flags)
     if (!flags->width || !flags->minus)
         ft_write("%", 1, flags);
     return ((flags->width) ? flags->width : 1);
+}
+
+int	print_p(va_list args, t_flags *flags)
+{
+    flags->length_type = LENGTH_L;
+    flags->hash_key = 1;
+    return (print_x(args, flags));
 }
 

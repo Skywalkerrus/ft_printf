@@ -116,6 +116,8 @@ int		ft_handle_length(char **str, t_flags *flags)
         ft_edit_length_type(str, flags, LENGTH_J, 1);
     else if (**str == 'z')
         ft_edit_length_type(str, flags, LENGTH_Z, 1);
+    else if (**str == 'L')
+        ft_edit_length_type(str, flags, LENGTH_L_UP, 1);
     else
         return (0);
     return (1);
@@ -130,10 +132,11 @@ t_types	g_types[ARGS_COUNT] = {
         {'c', print_symb},
         {'o', print_o},
         {'u',print_u},
-        {'U',print_u},
+        {'U',print_U},
         {'x',print_x},
         {'X',print_X},
-        {'%',print_procent}
+        {'%',print_procent},
+        {'p',print_p}
 };
 
 int	ft_call_type(char **str, va_list args, t_flags *flags)

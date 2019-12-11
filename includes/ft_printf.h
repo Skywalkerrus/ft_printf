@@ -34,6 +34,7 @@ typedef int (*func)();
 # define LENGTH_L 3
 # define LENGTH_J 6
 # define LENGTH_Z 5
+# define LENGTH_L_UP 7
 
 // structurs
 
@@ -116,7 +117,7 @@ int	print_x(va_list ap, t_flags *flags);
 int	print_procent(va_list args, t_flags *flags);
 int	print_X(va_list ap, t_flags *flags);
 int print_U(va_list ap, t_flags *flags);
-
+int	print_p(va_list args, t_flags *flags);
 //
 //void	print_ld(char *hu, va_list ap, t_node *list);
 //void	print_long_l(char *hu, va_list ap, t_node *list);

@@ -93,7 +93,6 @@ int print_f(va_list args, t_flags *flags)
     int size;
     double n;
 
-
     n = va_arg(args, double);
     if(flags->precision <= 0)
         flags->precision = 7;
