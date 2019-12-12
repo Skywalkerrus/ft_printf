@@ -97,17 +97,7 @@ int print_f(va_list args, t_flags *flags)
     if(flags->precision <= 0)
         flags->precision = 7;
     size = float_to_str(n,&nb,flags->precision);
-    ft_write(nb,size,flags);
+    display(nb,size,flags);
     free(nb);
     return (size);
 }
-
-//
-//int main()
-//{
-//
-//	float_to_str(275.1234,&str,7);
-//	ft_putchar('\n');
-//	printf("%.7f\n",275.1234);
-//	return(0);
-//}

@@ -24,7 +24,7 @@ DIR_O = objs
 
 HEADER = includes
 
-SOURCES = float.c number.c parser.c display.c functions.c string.c base_eight.c base_numbers.c
+SOURCES = float.c number.c parser.c display.c string.c  base_numbers.c define.c ft_printf.c define_nb.c display_nb.c
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 

@@ -26,15 +26,14 @@ typedef int (*func)();
 
 //defines
 # define BUFF_SIZE 1024
-# define STDOUT 1
-# define ARGS_COUNT 100
-# define LENGTH_HH 1
-# define LENGTH_H 2
-# define LENGTH_LL 4
-# define LENGTH_L 3
-# define LENGTH_J 6
-# define LENGTH_Z 5
-# define LENGTH_L_UP 7
+# define COUNT 100
+# define TYPE_HH 1
+# define TYPE_H 2
+# define TYPE_LL 4
+# define TYPE_L 3
+# define TYPE_J 6
+# define TYPE_Z 5
+# define TYPE_L_UP 7
 
 // structurs
 
@@ -51,13 +50,12 @@ typedef struct	s_flags
     char		type;
     char		buffer[BUFF_SIZE];
     int			bytes;
-    int			total_bytes;
 }				t_flags;
 
 
 typedef struct	s_types
 {
-    char		name;
+    char		type;
     int			(*f)();
 }				t_types;
 
@@ -80,30 +78,32 @@ int     print_f(va_list args, t_flags *flags);
 
 
 //write
-int		ft_write(void *s, int size, t_flags *flags);
-int     ft_pad(t_flags *flags, int size);
-int		ft_write_char(char c, t_flags *flags);
-int		ft_write_until_percentage(char **format, t_flags *flags);
-
+int		display(void *s, int size, t_flags *flags);
+int     pad(t_flags *flags, int size);
+int		display_no_precent(char **format, t_flags *flags);
+void		pad_nb(t_flags *flags, uintmax_t nb, int *size, char *base);
+int	pad_str(t_flags *flags, int size,void *s);
 
 //parser
-void	ft_init_flags(t_flags *flags);
-int		ft_handle_flags(char **str, t_flags *flags);
-int		ft_handle_width(char **str, t_flags *flags, va_list args);
-int		ft_handle_precision(char **str, t_flags *flags, va_list args);
-void	ft_edit_length_type(char **str, t_flags *flags, int flag_type, int size);
-int		ft_handle_length(char **str, t_flags *flags);
-int	ft_call_type(char **str, va_list args, t_flags *flags);
-uintmax_t	ft_get_nb_u(va_list args, t_flags flags);
-int	ft_handle(char **str, va_list args, t_flags *flags);
-int ft_printf(char *format, ...);
-void	ft_putnbr_base_intmax_t_u(uintmax_t nbr, char *str,
-								  uintmax_t str_length, t_flags *flags);
-void	ft_get_number_size_u(uintmax_t nbr, uintmax_t str_length, int *size);
-int			ft_handle_hash_key(uintmax_t nb, t_flags *flags, int *size,
-								  char *hash_key_content);
-void		ft_display_padding(t_flags *flags, uintmax_t nb, int *size,
-							   char *base);
+void	init_flags(t_flags *flags);
+int		define_flags(char **str, t_flags *flags);
+int		define_width(char **str, t_flags *flags, va_list args);
+int		define_precision(char **str, t_flags *flags, va_list args);
+void	edit_type(char **str, t_flags *flags, int flag_type, int size);
+int		define_length(char **str, t_flags *flags);
+int     parser(char **str, va_list args, t_flags *flags);
+int     call_type(char **str, va_list args, t_flags *flags);
+int     ft_printf(char *format, ...);
+intmax_t	type_nb(va_list args, t_flags flags);
+uintmax_t	type_nb_u(va_list args, t_flags flags);
+
+void	putnbr_base_intmax_t_u(uintmax_t nbr, char *str, uintmax_t str_length, t_flags *flags);
+void	number_size_u(uintmax_t nbr, uintmax_t str_length, int *size);
+int			hash_key(uintmax_t nb, t_flags *flags, int *size, char *hash_key_content);
+void		display_sign(intmax_t nb, t_flags *flags);
+int			display_d(t_flags *flags, int size, int precision, intmax_t nb);
+int			print_base(va_list args, t_flags *flags, char *base,
+                          char *key);
 
 
 //functions scywalkers

@@ -1,6 +1,6 @@
 #include "../includes/ft_printf.h"
 
-void		ft_display_padding(t_flags *flags, uintmax_t nb, int *size,
+void		pad_nb(t_flags *flags, uintmax_t nb, int *size,
 							   char *base)
 {
 	int			width;
@@ -16,26 +16,45 @@ void		ft_display_padding(t_flags *flags, uintmax_t nb, int *size,
 	precision = flags->precision - *size;
 	*size = (flags->precision > *size) ? flags->precision : *size;
 	while (flags->minus && width++ < precision)
-		ft_write("0", 1, flags);
+		display("0", 1, flags);
 	if (flags->minus && flags->precision != -1)
-		ft_putnbr_base_intmax_t_u(nb, base, ft_strlen(base), flags);
+		putnbr_base_intmax_t_u(nb, base, ft_strlen(base), flags);
 	width = 0;
 	while (width++ < flags->width - (*size + (flags->type == 'p' ? 2 : 0)))
-		ft_write((flags->zero && !flags->minus) ? "0" : " ", 1, flags);
+		display((flags->zero && !flags->minus) ? "0" : " ", 1, flags);
 	width = 0;
 	while (!flags->minus && width++ < precision)
-		ft_write("0", 1, flags);
+		display("0", 1, flags);
 	if (*size > 0 && flags->type == 'p')
 		*size += 2;
 }
 
-
-int		ft_write_char(char c, t_flags *flags)
+int	pad_str(t_flags *flags, int size,void *s)
 {
-    return (ft_write(&c, 1, flags));
+    int width;
+
+    width = 0;
+    if (flags->width)
+    {
+        if (flags->minus)
+            display(s, size, flags);
+        while (width++ < flags->width - size)
+            display((flags->zero && !flags->minus) ? "0" : " ", 1, flags);
+    }
+    return (size + width - 1);
 }
 
-int		ft_write_until_percentage(char **format, t_flags *flags)
+int	pad(t_flags *flags, int size)
+{
+    int width;
+
+    width = 0;
+    while (width++ < flags->width - size)
+        display((flags->zero && !flags->minus) ? "0" : " ", 1, flags);
+    return (size + width - 1);
+}
+
+int		display_no_precent(char **format, t_flags *flags)
 {
     int	next;
 
@@ -43,34 +62,23 @@ int		ft_write_until_percentage(char **format, t_flags *flags)
         next = (int)(ft_strchr(*format, '%') - *format);
     else
         next = (int)ft_strlen(*format);
-    ft_write(*format, next, flags);
+    display(*format, next, flags);
     *format += next;
     return (next);
 }
 
-
-int	ft_pad(t_flags *flags, int size)
-{
-    int width;
-
-    width = 0;
-    while (width++ < flags->width - size)
-        ft_write((flags->zero && !flags->minus) ? "0" : " ", 1, flags);
-    return (size + width - 1);
-}
-
-int		ft_write(void *s, int size, t_flags *flags)
+int		display(void *s, int size, t_flags *flags)
 {
     int		i;
     char	*str;
 
     if (flags->bytes + size > BUFF_SIZE)
     {
-        write(STDOUT, flags->buffer, (size_t)flags->bytes);
+        write(1, flags->buffer, (size_t)flags->bytes);
         flags->bytes = 0;
         if (size > BUFF_SIZE)
         {
-            write(STDOUT, s, (size_t)size);
+            write(1, s, (size_t)size);
             return (size);
         }
     }
@@ -78,6 +86,5 @@ int		ft_write(void *s, int size, t_flags *flags)
     str = s;
     while (i < size)
         flags->buffer[flags->bytes++] = str[i++];
-    flags->total_bytes += size;
     return (size);
 }
