@@ -5,9 +5,15 @@ int	print_str(va_list ap,t_flags *flags)
     char	*str;
     int     size;
 
+	size = 0;
     str = va_arg(ap, char*);
     if (!str || str == NULL)
-        size = 6;
+	{
+		size += 6;
+		//ft_strcpy(flags->buffer, "(null)");
+		display("(null)",size,flags);
+		return (size);
+	}
     else
         size = ft_strlen(str);
     size = (flags->precision == -1) ? 0 : size;
@@ -15,7 +21,8 @@ int	print_str(va_list ap,t_flags *flags)
         size = size - (size - flags->precision);
     pad_str(flags,size,str);
     if (!flags->width || !flags->minus)
-        display((str) ? str : "(null)", size, flags);
+    	display(str,size,flags);
+       // display((str) ? str : "(null)", size, flags);
     if (flags->width - size > 0)
         return (size + flags->width -size);
     else

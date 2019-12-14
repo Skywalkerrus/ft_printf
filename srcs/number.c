@@ -41,7 +41,7 @@ int print_o(va_list args, t_flags *flags)
     while (nb_size++ < flags->precision)
         display("0", 1, flags);
     if (flags->precision >= 0 || nb > 0)
-        putnbr_base_intmax_t_u(nb, "01234567", 8, flags);
+        putnbr_base(nb, "01234567", 8, flags);
     if (flags->width && flags->minus)
         size = pad(flags, size);
     return (size);

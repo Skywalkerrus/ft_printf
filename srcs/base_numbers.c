@@ -21,7 +21,7 @@ int			print_base(va_list args, t_flags *flags, char *base,
         !precision)
         display(key, (int)ft_strlen(key), flags);
     if ((!flags->width || !flags->minus) && size > 0)
-        putnbr_base_intmax_t_u(nb, base, ft_strlen(base), flags);
+        putnbr_base(nb, base, ft_strlen(base), flags);
     if (flags->hash_key && size > 0 && ((!flags->width || flags->minus) ||
                                         precision) && flags->type != 'p')
         size += (int)ft_strlen(key);

@@ -18,7 +18,7 @@ void		pad_nb(t_flags *flags, uintmax_t nb, int *size,
 	while (flags->minus && width++ < precision)
 		display("0", 1, flags);
 	if (flags->minus && flags->precision != -1)
-		putnbr_base_intmax_t_u(nb, base, ft_strlen(base), flags);
+		putnbr_base(nb, base, ft_strlen(base), flags);
 	width = 0;
 	while (width++ < flags->width - (*size + (flags->type == 'p' ? 2 : 0)))
 		display((flags->zero && !flags->minus) ? "0" : " ", 1, flags);
@@ -71,6 +71,13 @@ int		display(void *s, int size, t_flags *flags)
 {
     int		i;
     char	*str;
+
+	if (ft_strequ("(null)",(char *)s))
+	{
+//		flags->buffer = NULL;
+		ft_strcpy(flags->buffer,"(null)");
+		//return (size);
+	}
 
     if (flags->bytes + size > BUFF_SIZE)
     {

@@ -83,7 +83,7 @@ int     float_to_str(double n, char **s, int rigor)
 	float_part(n, &str, &i, rigor);
 	str[--i] = '\0';
 	*s = str;
-
+	printf("%s",str);
     return (size);
 }
 
@@ -93,7 +93,7 @@ int print_f(va_list args, t_flags *flags)
     int size;
     double n;
 
-    n = va_arg(args, double);
+    n = va_arg(args, long double);
     if(flags->precision <= 0)
         flags->precision = 7;
     size = float_to_str(n,&nb,flags->precision);
@@ -101,3 +101,13 @@ int print_f(va_list args, t_flags *flags)
     free(nb);
     return (size);
 }
+
+
+//int main()
+//{
+//	char *s = (char*)malloc(sizeof(char) * 1000);
+//
+//	float_to_str(234.12l,&s,7);
+//	return (0);
+//}
+//

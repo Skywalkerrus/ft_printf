@@ -10,11 +10,11 @@ void		display_sign(intmax_t nb, t_flags *flags)
         display(" ", 1, flags);
 }
 
-void	putnbr_base_intmax_t_u(uintmax_t nbr, char *str,
+void	putnbr_base(uintmax_t nbr, char *str,
                                   uintmax_t str_length, t_flags *flags)
 {
     if (nbr >= str_length)
-        putnbr_base_intmax_t_u(nbr / str_length, str, str_length, flags);
+        putnbr_base(nbr / str_length, str, str_length, flags);
     display(&str[nbr % str_length], 1, flags);
 }
 
@@ -35,7 +35,7 @@ int			display_d(t_flags *flags, int size, int precision, intmax_t nb)
     while (width++ < precision)
         display("0", 1, flags);
     if (size > 0)
-        putnbr_base_intmax_t_u((uintmax_t) (nb < 0 ? -nb : nb), "0123456789",
+        putnbr_base((uintmax_t) (nb < 0 ? -nb : nb), "0123456789",
                                   10, flags);
     return (size + width_size);
 }
