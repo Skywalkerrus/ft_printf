@@ -33,14 +33,15 @@ OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-		@make -C $(LIBFT)
+		@make -C $(LIBFT) fclean && make -C $(LIBFT)
 		@cp libft/libft.a ./$(NAME)
 		@ar rc $(NAME) $(OBJS)
 		@ranlib $(NAME)
+		@echo "OK"
 
 $(DIR_O)/%.o: $(DIR_S)/%.c $(HEADER)/ft_printf.h
 		@mkdir -p $(DIR_O)
-		@@$(CC) $(FLAGS) -I $(HEADER) -o $@ -c $<
+		@$(CC) $(FLAGS) -I $(HEADER) -o $@ -c $<
 
 clean:
 		@rm -f $(OBJS)
@@ -54,3 +55,6 @@ fclean: clean
 re: fclean all
 
 .PHONY: fclean re all clean
+
+
+
